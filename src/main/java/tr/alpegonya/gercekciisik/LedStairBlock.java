@@ -19,7 +19,7 @@ public final class LedStairBlock extends StairBlock implements net.minecraft.wor
         super(Blocks.OAK_PLANKS.defaultBlockState(),
                 properties.lightLevel(state -> state.getValue(POWERED)
                         ? ConfigurableLightBlock.lightLevelForMode(state.getValue(BRIGHTNESS)) : 0));
-        registerDefaultState(defaultBlockState().setValue(BRIGHTNESS, 2).setValue(POWERED, true));
+        registerDefaultState(defaultBlockState().setValue(BRIGHTNESS, 3).setValue(POWERED, true));
     }
 
     public int getDefaultColor() { return 11; }

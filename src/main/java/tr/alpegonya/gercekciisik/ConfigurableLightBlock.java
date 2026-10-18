@@ -110,6 +110,16 @@ public final class ConfigurableLightBlock extends DirectionalBlock implements En
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        if (stripKind == 1) {
+            return switch (state.getValue(FACING)) {
+                case DOWN -> Shapes.box(0, 14.0 / 16.0, 6.0 / 16.0, 1, 15.7 / 16.0, 10.0 / 16.0);
+                case UP -> Shapes.box(0, 0.3 / 16.0, 6.0 / 16.0, 1, 2.0 / 16.0, 10.0 / 16.0);
+                case NORTH -> Shapes.box(0, 6.0 / 16.0, 14.0 / 16.0, 1, 10.0 / 16.0, 1);
+                case SOUTH -> Shapes.box(0, 6.0 / 16.0, 0, 1, 10.0 / 16.0, 2.0 / 16.0);
+                case WEST -> Shapes.box(14.0 / 16.0, 6.0 / 16.0, 0, 1, 10.0 / 16.0, 1);
+                case EAST -> Shapes.box(0, 6.0 / 16.0, 0, 2.0 / 16.0, 10.0 / 16.0, 1);
+            };
+        }
         if (stripKind == 2) {
             // A vertical strip is a narrow full-height bar on walls or a slim pendant below/above surfaces.
             return switch (state.getValue(FACING)) {

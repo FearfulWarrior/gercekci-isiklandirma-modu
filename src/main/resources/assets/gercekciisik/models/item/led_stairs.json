@@ -1,3 +1,118 @@
 {
-  "parent": "gercekciisik:block/led_stair_straight"
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "minecraft:block/oak_planks",
+    "wood": "minecraft:block/oak_planks",
+    "diffuser": "gercekciisik:block/diffuser"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        8
+      ],
+      "to": [
+        16,
+        8,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "north": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        8,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        8
+      ],
+      "faces": {
+        "down": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "north": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        7.2,
+        7.7
+      ],
+      "to": [
+        16,
+        8.2,
+        8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#diffuser",
+          "tintindex": 0
+        },
+        "up": {
+          "texture": "#diffuser",
+          "tintindex": 0
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        15.2,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        0.3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#diffuser",
+          "tintindex": 0
+        },
+        "up": {
+          "texture": "#diffuser",
+          "tintindex": 0
+        }
+      }
+    }
+  ]
 }

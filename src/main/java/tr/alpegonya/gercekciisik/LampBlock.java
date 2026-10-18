@@ -31,7 +31,7 @@ public final class LampBlock extends DirectionalBlock implements EntityBlock {
     public static final BooleanProperty POWERED = BooleanProperty.create("powered");
     public static final int MODERN_COLOR_COUNT = 15;
     public static final int MODERN_KELVIN_COLOR = 15;
-    private static final int[] LIGHT_LEVELS = {2, 4, 6, 8, 15};
+    private static final int[] LIGHT_LEVELS = {1, 4, 10, 13, 15};
 
     private static final VoxelShape SLAB_BOTTOM = Shapes.box(0, 0, 0, 1, 2.0 / 16.0, 1);
     private static final VoxelShape SLAB_TOP = Shapes.box(0, 14.0 / 16.0, 0, 1, 1, 1);
@@ -49,7 +49,7 @@ public final class LampBlock extends DirectionalBlock implements EntityBlock {
         registerDefaultState(stateDefinition.any()
                 .setValue(FACING, Direction.DOWN)
                 .setValue(COLOR, modern ? 13 : 0)
-                .setValue(BRIGHTNESS, modern ? 10 : 13)
+                .setValue(BRIGHTNESS, 13)
                 .setValue(POWERED, true));
     }
 

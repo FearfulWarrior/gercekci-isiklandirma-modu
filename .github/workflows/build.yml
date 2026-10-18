@@ -75,16 +75,29 @@ jobs:
               "assets/gercekciisik/models/block/led_stair_glow.json",
               "assets/gercekciisik/textures/block/ceiling_panel.png",
               "assets/gercekciisik/textures/block/ring_housing.png",
+              "data/gercekciisik/loot_tables/blocks/traditional_fluorescent.json",
+              "data/gercekciisik/loot_tables/blocks/modern_fluorescent.json",
+              "data/gercekciisik/loot_tables/blocks/square_spot.json",
+              "data/gercekciisik/loot_tables/blocks/round_spot.json",
+              "data/gercekciisik/loot_tables/blocks/traditional_ring_light.json",
+              "data/gercekciisik/loot_tables/blocks/modern_ring_light.json",
+              "data/gercekciisik/loot_tables/blocks/horizontal_led_strip.json",
+              "data/gercekciisik/loot_tables/blocks/vertical_led_strip.json",
+              "data/gercekciisik/loot_tables/blocks/led_ceiling_panel.json",
+              "data/gercekciisik/loot_tables/blocks/led_stairs.json",
           ]
           with zipfile.ZipFile(jar) as z:
               names = set(z.namelist())
               missing = [p for p in required if p not in names]
               assert not missing, f"JAR is missing required files: {missing}"
               meta = z.read("META-INF/mods.toml").decode("utf-8")
-              assert 'version="0.1.0"' in meta, "JAR mod version is not 0.1.0"
+              assert 'version="0.1.1"' in meta, "JAR mod version is not 0.1.1"
               for name in names:
                   if name.endswith(".json"):
                       json.loads(z.read(name).decode("utf-8"))
+              for ident in ["traditional_fluorescent","modern_fluorescent","square_spot","round_spot","traditional_ring_light","modern_ring_light","horizontal_led_strip","vertical_led_strip","led_ceiling_panel","led_stairs"]:
+                  loot = json.loads(z.read(f"data/gercekciisik/loot_tables/blocks/{ident}.json").decode("utf-8"))
+                  assert loot["pools"][0]["entries"][0]["name"] == f"gercekciisik:{ident}", f"Bad loot table for {ident}"
               emitter = json.loads(z.read("assets/gercekciisik/light/emitters.json").decode("utf-8"))
               traditional = emitter["gercekciisik:traditional_fluorescent"]["variants"]
               modern = emitter["gercekciisik:modern_fluorescent"]["variants"]
@@ -127,15 +140,15 @@ jobs:
         run: |
           JAR=$(find build/libs -maxdepth 1 -name '*.jar' ! -name '*-sources.jar' | head -n 1)
           test -n "$JAR"
-          cp "$JAR" "Gerçekçi Işıklandırma Modu 0.1.0.jar"
-          cp "$JAR" "Gercekci-Isiklandirma-Modu-0.1.0.jar"
+          cp "$JAR" "Gerçekçi Işıklandırma Modu 0.1.1.jar"
+          cp "$JAR" "Gercekci-Isiklandirma-Modu-0.1.1.jar"
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
-          name: gercekci-isiklandirma-0.1.0
+          name: gercekci-isiklandirma-0.1.1
           path: |
-            Gerçekçi Işıklandırma Modu 0.1.0.jar
-            Gercekci-Isiklandirma-Modu-0.1.0.jar
+            Gerçekçi Işıklandırma Modu 0.1.1.jar
+            Gercekci-Isiklandirma-Modu-0.1.1.jar
           if-no-files-found: error
           retention-days: 14
       - name: Publish direct JAR download
@@ -143,12 +156,12 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: "build-${{ github.run_number }}"
-          name: "Gerçekçi Işıklandırma Modu 0.1.0 (build ${{ github.run_number }})"
+          name: "Gerçekçi Işıklandırma Modu 0.1.1 (build ${{ github.run_number }})"
           body: |
             Minecraft Java 1.20.1 + Forge 47.2.0 test build.
             Compiled by GitHub Actions using Java 17.
             This build has not been tested in-game by the workflow.
-          files: "Gercekci-Isiklandirma-Modu-0.1.0.jar"
+          files: "Gercekci-Isiklandirma-Modu-0.1.1.jar"
           make_latest: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

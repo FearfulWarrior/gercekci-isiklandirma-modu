@@ -36,17 +36,17 @@ public final class GercekciIsikMod {
                     BlockBehaviour.Properties.of().strength(0.3F).sound(SoundType.GLASS).noOcclusion()));
 
     public static final RegistryObject<ConfigurableLightBlock> SQUARE_SPOT =
-            BLOCKS.register("square_spot", () -> new ConfigurableLightBlock(1, 13, 2, 0, fixtureProperties()));
+            BLOCKS.register("square_spot", () -> new ConfigurableLightBlock(1, 13, 3, 0, fixtureProperties()));
     public static final RegistryObject<ConfigurableLightBlock> ROUND_SPOT =
-            BLOCKS.register("round_spot", () -> new ConfigurableLightBlock(1, 13, 2, 0, fixtureProperties()));
+            BLOCKS.register("round_spot", () -> new ConfigurableLightBlock(1, 13, 3, 0, fixtureProperties()));
     public static final RegistryObject<ConfigurableLightBlock> TRADITIONAL_RING_LIGHT =
             BLOCKS.register("traditional_ring_light", () -> new ConfigurableLightBlock(2, 0, 3, 0, fixtureProperties()));
     public static final RegistryObject<ConfigurableLightBlock> MODERN_RING_LIGHT =
-            BLOCKS.register("modern_ring_light", () -> new ConfigurableLightBlock(1, 13, 2, 0, fixtureProperties()));
+            BLOCKS.register("modern_ring_light", () -> new ConfigurableLightBlock(1, 13, 3, 0, fixtureProperties()));
     public static final RegistryObject<ConfigurableLightBlock> HORIZONTAL_LED_STRIP =
-            BLOCKS.register("horizontal_led_strip", () -> new ConfigurableLightBlock(1, 13, 2, 1, fixtureProperties()));
+            BLOCKS.register("horizontal_led_strip", () -> new ConfigurableLightBlock(1, 13, 3, 1, fixtureProperties()));
     public static final RegistryObject<ConfigurableLightBlock> VERTICAL_LED_STRIP =
-            BLOCKS.register("vertical_led_strip", () -> new ConfigurableLightBlock(1, 13, 2, 2, fixtureProperties()));
+            BLOCKS.register("vertical_led_strip", () -> new ConfigurableLightBlock(1, 13, 3, 2, fixtureProperties()));
     public static final RegistryObject<Block> LED_CEILING_PANEL =
             BLOCKS.register("led_ceiling_panel", () -> new Block(BlockBehaviour.Properties.of()
                     .strength(1.0F).sound(SoundType.STONE).noOcclusion()));

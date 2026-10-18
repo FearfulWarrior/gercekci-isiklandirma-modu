@@ -25,3 +25,12 @@ Standart Minecraft ışık motoru RGB rengini çevreye yaymaz. İstemcide **Colo
 
 ## Test durumu
 GitHub Actions Java 17 ile modun derlenmesini ve kaynak paketlerini doğrular. Derleme başarıyla sonuçlansa da oyun içi test ayrıca yapılmalıdır.
+
+
+## 0.1.1 fixes
+- Fluorescent brightness levels now match the five shared modes (1, 4, 10, 13, 15); installed defaults are high (13).
+- Spotlights, ring LEDs, LED strips, and LED stairs default to high mode (13).
+- Horizontal LED strip selection shape follows its thin visible strip instead of the whole fixture slab.
+- Added block loot tables so all ten registered fixtures drop their own item when broken.
+- Added a dedicated LED-stair item icon with visible diffuser bands.
+- Added English names for the new light types.
