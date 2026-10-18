@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'tr.alpegonya.gercekciisik'
-version = '0.1.2'
+version = '0.1.0'
 base { archivesName = 'gercekci-isiklandirma' }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)

@@ -26,10 +26,11 @@ public final class LightingRemoteItem extends Item {
             int color = state.getValue(LampBlock.COLOR);
             int brightness = state.getValue(LampBlock.BRIGHTNESS);
             int temperature = state.getValue(LampBlock.TEMPERATURE);
+            boolean powered = state.getValue(LampBlock.POWERED);
             boolean modern = lamp.isModern();
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
                     () -> () -> tr.alpegonya.gercekciisik.client.ClientScreenOpener.open(
-                            pos, color, brightness, temperature, modern));
+                            pos, color, brightness, temperature, powered, modern));
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
     }

@@ -16,17 +16,21 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public final class LampBlock extends DirectionalBlock {
-    public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 13);
+    public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 15);
     public static final IntegerProperty BRIGHTNESS = IntegerProperty.create("brightness", 0, 15);
-    // Index 0..18 maps to 1000K..10000K in 500K steps.
     public static final IntegerProperty TEMPERATURE = IntegerProperty.create("temperature", 0, 18);
-    public static final int MODERN_COLOR_COUNT = 14;
+    public static final BooleanProperty POWERED = BooleanProperty.create("powered");
+
+    // Fifteen visible swatches (indices 0..14); index 15 is the custom Kelvin mode.
+    public static final int MODERN_COLOR_COUNT = 15;
+    public static final int MODERN_KELVIN_COLOR = 15;
 
     private static final VoxelShape SLAB_BOTTOM = Shapes.box(0, 0, 0, 1, 2.0 / 16.0, 1);
     private static final VoxelShape SLAB_TOP = Shapes.box(0, 14.0 / 16.0, 0, 1, 1, 1);
@@ -38,14 +42,15 @@ public final class LampBlock extends DirectionalBlock {
     private final boolean modern;
 
     public LampBlock(boolean modern, BlockBehaviour.Properties properties) {
-        // Full vanilla block-light emission is 15; brightness zero switches the lamp off.
-        super(properties.lightLevel(state -> state.getValue(BRIGHTNESS)));
+        super(properties.lightLevel(state ->
+                state.getValue(POWERED) ? state.getValue(BRIGHTNESS) : 0));
         this.modern = modern;
         registerDefaultState(stateDefinition.any()
                 .setValue(FACING, Direction.DOWN)
-                .setValue(COLOR, modern ? 12 : 0)
+                .setValue(COLOR, modern ? 13 : 0)
                 .setValue(BRIGHTNESS, 15)
-                .setValue(TEMPERATURE, 9));
+                .setValue(TEMPERATURE, 9)
+                .setValue(POWERED, true));
     }
 
     public boolean isModern() {
@@ -98,7 +103,7 @@ public final class LampBlock extends DirectionalBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, COLOR, BRIGHTNESS, TEMPERATURE);
+        builder.add(FACING, COLOR, BRIGHTNESS, TEMPERATURE, POWERED);
     }
 
     @Override
@@ -118,25 +123,27 @@ public final class LampBlock extends DirectionalBlock {
                 default -> 0xE8D8FF;
             };
         }
-        return switch (Mth.clamp(color, 0, 13)) {
+        return switch (Mth.clamp(color, 0, MODERN_KELVIN_COLOR)) {
             case 0 -> 0xFF3030;  // Kırmızı
             case 1 -> 0xFF8C24;  // Turuncu
             case 2 -> 0xFFFF36;  // Sarı
             case 3 -> 0x53F04D;  // Yeşil
             case 4 -> 0x36E8D1;  // Turkuaz
-            case 5 -> 0x87DFFF;  // Açık mavi
-            case 6 -> 0x406DFF;  // Mavi
+            case 5 -> 0x87CEEB;  // Gökyüzü mavisi
+            case 6 -> 0x0000FF;  // Saf mavi
             case 7 -> 0x8847F4;  // Mor
-            case 8 -> 0xD79AFF;  // Eflatun
-            case 9 -> 0xFF78C7;  // Pembe
-            case 10 -> 0xE9D7FF; // Mor-beyaz
-            case 11, 12, 13 -> fromKelvin(1000 + Mth.clamp(temperatureIndex, 0, 18) * 500);
-            default -> 0xFFFFFF;
+            case 8 -> 0xC154C1;  // Eflatun
+            case 9 -> 0xFFCBDB;  // Kullanıcının gönderdiği pembe
+            case 10 -> 0xE8D8FF; // Mor-beyaz
+            case 11 -> 0xFFE0A3; // Sıcak beyaz
+            case 12 -> 0xFFF1DF; // Günışığı
+            case 13 -> 0xFFFFFF; // Beyaz
+            case 14 -> 0xC8E8FF; // Soğuk beyaz
+            default -> fromKelvin(1000 + Mth.clamp(temperatureIndex, 0, 18) * 500);
         };
     }
 
     private static int fromKelvin(int kelvin) {
-        // Approximation of black-body colour temperature, suitable for a panel tint.
         double temp = Mth.clamp(kelvin, 1000, 10000) / 100.0;
         double red = temp <= 66 ? 255.0 : 329.698727446 * Math.pow(temp - 60, -0.1332047592);
         double green = temp <= 66

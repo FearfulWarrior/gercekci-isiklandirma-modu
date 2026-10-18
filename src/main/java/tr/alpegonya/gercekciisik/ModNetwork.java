@@ -11,6 +11,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
+
 import java.util.function.Supplier;
 
 public final class ModNetwork {
@@ -26,8 +27,8 @@ public final class ModNetwork {
                 ConfigureLampPacket::encode, ConfigureLampPacket::decode, ConfigureLampPacket::handle);
     }
 
-    public static void sendConfig(BlockPos pos, int color, int brightness, int temperature) {
-        CHANNEL.sendToServer(new ConfigureLampPacket(pos, color, brightness, temperature));
+    public static void sendConfig(BlockPos pos, int color, int brightness, int temperature, boolean powered) {
+        CHANNEL.sendToServer(new ConfigureLampPacket(pos, color, brightness, temperature, powered));
     }
 
     public static final class ConfigureLampPacket {
@@ -35,12 +36,14 @@ public final class ModNetwork {
         private final int color;
         private final int brightness;
         private final int temperature;
+        private final boolean powered;
 
-        public ConfigureLampPacket(BlockPos pos, int color, int brightness, int temperature) {
+        public ConfigureLampPacket(BlockPos pos, int color, int brightness, int temperature, boolean powered) {
             this.pos = pos;
             this.color = color;
             this.brightness = brightness;
             this.temperature = temperature;
+            this.powered = powered;
         }
 
         private static void encode(ConfigureLampPacket packet, FriendlyByteBuf buffer) {
@@ -48,11 +51,12 @@ public final class ModNetwork {
             buffer.writeVarInt(packet.color);
             buffer.writeVarInt(packet.brightness);
             buffer.writeVarInt(packet.temperature);
+            buffer.writeBoolean(packet.powered);
         }
 
         private static ConfigureLampPacket decode(FriendlyByteBuf buffer) {
-            return new ConfigureLampPacket(buffer.readBlockPos(), buffer.readVarInt(),
-                    buffer.readVarInt(), buffer.readVarInt());
+            return new ConfigureLampPacket(buffer.readBlockPos(), buffer.readVarInt(), buffer.readVarInt(),
+                    buffer.readVarInt(), buffer.readBoolean());
         }
 
         private static void handle(ConfigureLampPacket packet, Supplier<NetworkEvent.Context> contextSupplier) {
@@ -76,15 +80,16 @@ public final class ModNetwork {
                 if (!(state.getBlock() instanceof LampBlock lamp)) {
                     return;
                 }
-                int maxColor = lamp.isModern() ? LampBlock.MODERN_COLOR_COUNT - 1 : 2;
+                int maxColor = lamp.isModern() ? LampBlock.MODERN_KELVIN_COLOR : 2;
                 int safeColor = Math.max(0, Math.min(maxColor, packet.color));
                 int safeBrightness = Math.max(0, Math.min(15, packet.brightness));
                 int safeTemperature = Math.max(0, Math.min(18, packet.temperature));
                 BlockState configured = state.setValue(LampBlock.COLOR, safeColor)
                         .setValue(LampBlock.BRIGHTNESS, safeBrightness)
-                        .setValue(LampBlock.TEMPERATURE, safeTemperature);
+                        .setValue(LampBlock.TEMPERATURE, safeTemperature)
+                        .setValue(LampBlock.POWERED, packet.powered);
 
-                // Selecting an already-active value should not rebuild a chunk or relight the block.
+                // Don't trigger a block/light update when the chosen configuration is unchanged.
                 if (!configured.equals(state)) {
                     level.setBlock(packet.pos, configured, 3);
                 }

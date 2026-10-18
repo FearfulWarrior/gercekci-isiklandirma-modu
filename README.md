@@ -1,23 +1,25 @@
 # Gerçekçi Işıklandırma Modu
 
-Minecraft Java Edition 1.20.1 + Forge 47.x için geliştirme sürümü.
+Minecraft Java Edition 1.20.1 + Forge 47.2.0 için geliştirme sürümü.
 
-## Özellikler
-- Tek blokluk, kare, alüminyum reflektör ızgaralı geleneksel floresan.
-- Tek blokluk, düz ve parlak yüzeyli kare modern LED panel.
-- Işık Kontrol Kumandası ve Türkçe renk/parlaklık ayar menüsü.
-- Geleneksel modelde üç renk; modern modelde RGB renkleri ve Kelvin sıcaklığı.
-- 0–15 parlaklık seviyesi.
-- Özel yaratıcı envanter sekmesi.
+## İçerik
+- 1×1 blok boyutunda geleneksel alüminyum reflektör ızgaralı armatür.
+- 1×1 blok boyutunda modern kare LED panel.
+- Işık Kontrol Kumandası ve Türkçe renk kontrol menüsü.
+- Geleneksel lambada üç sabit renk seçeneği.
+- Modern lambada 15 renk örneği ve 1000 K–10000 K arası ayarlanabilir Kelvin modu.
+- 0–15 parlaklık, bağımsız açma/kapama ve lamba blok durumunda saklanan ayarlar.
+- Işık Kontrolü isimli özel yaratıcı sekmesi.
 
 ## Performans
-- Kelvin renk geçişi artık her karede yüzlerce ayrı dikdörtgen çizmek yerine tek bir küçük doku ile çizilir.
-- Kumanda aynı renk/sıcaklık/parlaklık değerini tekrar gönderirse blok ve ışık güncellemesi yapılmaz.
+- Kelvin şeması tek doku üzerinden çizilir.
+- Aynı ayarlar tekrar gönderildiğinde gereksiz blok/ışık güncellemesi atlanır.
 - Lambalar sürekli çalışan tick veya block entity kullanmaz.
-- Bu değişiklikler modun kendi gereksiz çizim ve güncelleme işlerini azaltır; diğer modların, shader paketlerinin veya düşük Java bellek sınırının neden olduğu performans sorunlarını tek başına ortadan kaldırmayı garanti etmez.
+- Opaque (tam opak) modelleri solid render katmanında bırakarak gereksiz cutout katmanından kaçınılır.
+- Bunlar modun kendi ek yükünü azaltmaya yönelik önlemlerdir; tüm bilgisayar performansını garanti etmez.
 
-## Işık sistemi notu
-Standart Minecraft ışık motoru gerçek RGB ışık yayılımı sunmaz. Bu sürüm lambanın yüzey rengini ve beyaz sıcaklığını değiştirir, parlaklık ayarıyla blok ışık seviyesini 0–15 arasında yönetir. Gerçek renkli ortam ışığı bu sürümde henüz yer almıyor.
+## Gerçekçi ışık notu
+Standart Minecraft blok ışığı RGB renkleri çevreye renkli biçimde yaymaz. Lamba yüzeyinin rengi seçilen RGB tonunu takip eder ve blok ışık seviyesi 0–15 arasında değişir. Gerçek renkli ortam ışığı için ayrı bir uyumlu aydınlatma/renderer çözümü gerekir.
 
-## Bulut derleme
-GitHub Actions → Build Gercekci Isiklandirma Modu iş akışı Java 17 ile derleme yapar. Derleme başarısı oyun içinde test edilmişlik anlamına gelmez.
+## Derleme
+GitHub Actions, Java 17 ile Forge modunu bulutta derler. Derlemenin başarılı olması, oyun içinde test edildiği anlamına gelmez.

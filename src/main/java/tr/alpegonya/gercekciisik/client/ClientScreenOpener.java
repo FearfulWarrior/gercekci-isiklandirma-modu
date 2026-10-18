@@ -9,7 +9,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public final class ClientScreenOpener {
     private ClientScreenOpener() {}
 
-    public static void open(BlockPos pos, int color, int brightness, int temperature, boolean modern) {
-        Minecraft.getInstance().setScreen(new LampControlScreen(pos, color, brightness, temperature, modern));
+    public static void open(BlockPos pos, int color, int brightness, int temperature,
+                            boolean powered, boolean modern) {
+        Minecraft.getInstance().setScreen(
+                new LampControlScreen(pos, color, brightness, temperature, powered, modern));
     }
 }

@@ -13,95 +13,124 @@ public final class LampControlScreen extends Screen {
     private static final ResourceLocation KELVIN_GRADIENT =
             new ResourceLocation("gercekciisik", "textures/gui/kelvin_gradient.png");
 
-    private static final String[] MODERN_COLORS = {
-            "Kırmızı", "Turuncu", "Sarı", "Yeşil",
-            "Turkuaz", "Açık mavi", "Mavi", "Mor",
-            "Eflatun", "Pembe", "Mor-beyaz", "Sıcak ışık",
-            "Beyaz", "Soğuk beyaz"
+    private static final String[] MODERN_COLOR_NAMES = {
+            "Kırmızı", "Turuncu", "Sarı", "Yeşil", "Turkuaz",
+            "Açık mavi", "Mavi", "Mor", "Eflatun", "Pembe",
+            "Mor-beyaz", "Sıcak beyaz", "Günışığı", "Beyaz", "Soğuk beyaz"
     };
-    private static final String[] CLASSIC_COLORS = {
+    private static final int[] MODERN_COLOR_RGB = {
+            0xFF3030, 0xFF8C24, 0xFFFF36, 0x53F04D, 0x36E8D1,
+            0x87CEEB, 0x0000FF, 0x8847F4, 0xC154C1, 0xFFCBDB,
+            0xE8D8FF, 0xFFE0A3, 0xFFF1DF, 0xFFFFFF, 0xC8E8FF
+    };
+    private static final String[] CLASSIC_COLOR_NAMES = {
             "Soğuk mavi-beyaz", "Beyaz", "Mor-beyaz"
     };
+    private static final int[] CLASSIC_COLOR_RGB = {0xD6E8FF, 0xFFFFFF, 0xE8D8FF};
 
     private final BlockPos pos;
     private final boolean modern;
     private int color;
     private int brightness;
     private int temperature;
+    private boolean powered;
 
-    public LampControlScreen(BlockPos pos, int color, int brightness, int temperature, boolean modern) {
+    public LampControlScreen(BlockPos pos, int color, int brightness, int temperature,
+                             boolean powered, boolean modern) {
         super(Component.literal(modern ? "Modern Floresan Kontrolü" : "Geleneksel Floresan Kontrolü"));
         this.pos = pos;
         this.color = color;
         this.brightness = brightness;
         this.temperature = temperature;
+        this.powered = powered;
         this.modern = modern;
+    }
+
+    private int verticalOffset() {
+        return Math.max(0, (height - 330) / 2);
     }
 
     @Override
     protected void init() {
         int center = width / 2;
-        int startY;
+        int offset = verticalOffset();
+
         if (modern) {
-            int columns = 7;
-            int buttonWidth = 55;
-            int gap = 4;
-            int gridWidth = columns * buttonWidth + (columns - 1) * gap;
-            int startX = center - gridWidth / 2;
-            startY = 39;
-            for (int i = 0; i < MODERN_COLORS.length; i++) {
-                final int selected = i;
-                int col = i % columns;
-                int row = i / columns;
-                String label = MODERN_COLORS[i];
-                addRenderableWidget(Button.builder(Component.literal(label), button -> selectColor(selected))
-                        .bounds(startX + col * (buttonWidth + gap), startY + row * 23, buttonWidth, 20)
-                        .build());
+            int columns = 5;
+            int buttonWidth = 30;
+            int buttonHeight = 21;
+            int gapX = 4;
+            int gapY = 3;
+            int totalWidth = columns * buttonWidth + (columns - 1) * gapX;
+            int startX = center - totalWidth / 2;
+            int startY = 31 + offset;
+            for (int i = 0; i < MODERN_COLOR_NAMES.length; i++) {
+                int index = i;
+                int x = startX + (i % columns) * (buttonWidth + gapX);
+                int y = startY + (i / columns) * (buttonHeight + gapY);
+                addRenderableWidget(new ColorSwatchButton(
+                        x, y, buttonWidth, buttonHeight, index, MODERN_COLOR_RGB[i],
+                        () -> color, this::selectColor, Component.literal(MODERN_COLOR_NAMES[i])));
             }
 
-            addRenderableWidget(Button.builder(Component.literal("− 500 K"), button -> changeTemperature(-1))
-                    .bounds(center - 126, 126, 78, 20).build());
-            addRenderableWidget(Button.builder(Component.literal("+ 500 K"), button -> changeTemperature(1))
-                    .bounds(center + 48, 126, 78, 20).build());
-
-            addRenderableWidget(Button.builder(Component.literal("−"), button -> changeBrightness(-1))
-                    .bounds(center - 82, 177, 38, 20).build());
-            addRenderableWidget(Button.builder(Component.literal("+"), button -> changeBrightness(1))
-                    .bounds(center + 44, 177, 38, 20).build());
+            addRenderableWidget(Button.builder(Component.literal("− 500 K"), b -> changeTemperature(-1))
+                    .bounds(center - 111, 144 + offset, 82, 18).build());
+            addRenderableWidget(Button.builder(Component.literal("+ 500 K"), b -> changeTemperature(1))
+                    .bounds(center + 29, 144 + offset, 82, 18).build());
+            addRenderableWidget(Button.builder(Component.literal("−"), b -> changeBrightness(-1))
+                    .bounds(center - 65, 181 + offset, 40, 18).build());
+            addRenderableWidget(Button.builder(Component.literal("+"), b -> changeBrightness(1))
+                    .bounds(center + 25, 181 + offset, 40, 18).build());
+            addRenderableWidget(Button.builder(powerLabel(), b -> togglePower())
+                    .bounds(center - 65, 208 + offset, 130, 20).build());
         } else {
-            int buttonWidth = 124;
-            int gap = 8;
-            int gridWidth = buttonWidth * 3 + gap * 2;
-            int startX = center - gridWidth / 2;
-            startY = 53;
-            for (int i = 0; i < CLASSIC_COLORS.length; i++) {
-                final int selected = i;
-                addRenderableWidget(Button.builder(Component.literal(CLASSIC_COLORS[i]),
-                                button -> selectColor(selected))
-                        .bounds(startX + i * (buttonWidth + gap), startY, buttonWidth, 22).build());
+            int buttonWidth = 46;
+            int buttonHeight = 28;
+            int gap = 10;
+            int totalWidth = CLASSIC_COLOR_NAMES.length * buttonWidth + (CLASSIC_COLOR_NAMES.length - 1) * gap;
+            int startX = center - totalWidth / 2;
+            int startY = 52 + offset;
+            for (int i = 0; i < CLASSIC_COLOR_NAMES.length; i++) {
+                int index = i;
+                addRenderableWidget(new ColorSwatchButton(
+                        startX + i * (buttonWidth + gap), startY, buttonWidth, buttonHeight,
+                        index, CLASSIC_COLOR_RGB[i], () -> color, this::selectColor,
+                        Component.literal(CLASSIC_COLOR_NAMES[i])));
             }
-            addRenderableWidget(Button.builder(Component.literal("−"), button -> changeBrightness(-1))
-                    .bounds(center - 82, 142, 38, 20).build());
-            addRenderableWidget(Button.builder(Component.literal("+"), button -> changeBrightness(1))
-                    .bounds(center + 44, 142, 38, 20).build());
+            addRenderableWidget(Button.builder(Component.literal("−"), b -> changeBrightness(-1))
+                    .bounds(center - 65, 122 + offset, 40, 18).build());
+            addRenderableWidget(Button.builder(Component.literal("+"), b -> changeBrightness(1))
+                    .bounds(center + 25, 122 + offset, 40, 18).build());
+            addRenderableWidget(Button.builder(powerLabel(), b -> togglePower())
+                    .bounds(center - 65, 153 + offset, 130, 20).build());
         }
 
-        addRenderableWidget(Button.builder(Component.literal("Kapat"), button -> onClose())
-                .bounds(center - 40, height - 27, 80, 20).build());
+        addRenderableWidget(Button.builder(Component.literal("Kapat"), b -> onClose())
+                .bounds(center - 40, height - 25, 80, 20).build());
+    }
+
+    private Component powerLabel() {
+        return Component.literal(powered ? "IŞIĞI KAPAT" : "IŞIĞI AÇ");
     }
 
     private void selectColor(int selected) {
         int max = modern ? LampBlock.MODERN_COLOR_COUNT - 1 : 2;
         color = Math.max(0, Math.min(max, selected));
-        if (modern && selected == 11) temperature = 4;  // 3000K warm light
-        if (modern && selected == 12) temperature = 9;  // 5500K neutral white
-        if (modern && selected == 13) temperature = 13; // 7500K cool white
+        if (modern) {
+            temperature = switch (selected) {
+                case 11 -> 4;  // ~3000 K
+                case 12 -> 8;  // 5000 K
+                case 13 -> 9;  // 5500 K
+                case 14 -> 13; // 7500 K
+                default -> temperature;
+            };
+        }
         send();
     }
 
     private void changeTemperature(int steps) {
         temperature = Math.max(0, Math.min(18, temperature + steps));
-        color = 12;
+        color = LampBlock.MODERN_KELVIN_COLOR;
         send();
     }
 
@@ -110,44 +139,86 @@ public final class LampControlScreen extends Screen {
         send();
     }
 
+    private void togglePower() {
+        powered = !powered;
+        send();
+        clearWidgets();
+        init();
+    }
+
     private void send() {
-        ModNetwork.sendConfig(pos, color, brightness, temperature);
+        ModNetwork.sendConfig(pos, color, brightness, temperature, powered);
+    }
+
+    private int kelvinBarWidth() {
+        return Math.max(80, Math.min(256, width - 80));
+    }
+
+    private int kelvinBarX() {
+        return (width - kelvinBarWidth()) / 2;
+    }
+
+    private int kelvinBarY() {
+        return 116 + verticalOffset();
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (modern && button == 0
+                && mouseX >= kelvinBarX() && mouseX < kelvinBarX() + kelvinBarWidth()
+                && mouseY >= kelvinBarY() && mouseY < kelvinBarY() + 9) {
+            double fraction = (mouseX - kelvinBarX()) / Math.max(1.0, kelvinBarWidth() - 1.0);
+            temperature = (int) Math.round(fraction * 18.0);
+            temperature = Math.max(0, Math.min(18, temperature));
+            color = LampBlock.MODERN_KELVIN_COLOR;
+            send();
+            return true;
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         renderBackground(graphics);
         super.render(graphics, mouseX, mouseY, partialTick);
-        graphics.drawCenteredString(font, title, width / 2, 10, 0xFFFFFF);
+        int center = width / 2;
+        int offset = verticalOffset();
+        graphics.drawCenteredString(font, title, center, 8 + offset, 0xFFFFFF);
+
         if (modern) {
-            graphics.drawCenteredString(font, Component.literal("Renk seçimi"), width / 2, 26, 0xD5DDE8);
+            graphics.drawCenteredString(font, Component.literal("Renk seçimi"), center, 22 + offset, 0xD5DDE8);
             graphics.drawCenteredString(font,
                     Component.literal("Renk sıcaklığı: " + (1000 + temperature * 500) + " K"),
-                    width / 2, 91, 0xFFFFFF);
+                    center, 106 + offset, 0xFFFFFF);
 
-            int barWidth = Math.min(300, width - 80);
-            int barX = (width - barWidth) / 2;
-            int barY = 105;
-            // One cached texture draw instead of hundreds of per-pixel fills on every frame.
-            graphics.blit(KELVIN_GRADIENT, barX, barY, 0.0F, 0.0F, barWidth, 9, 256, 1);
+            int barWidth = kelvinBarWidth();
+            int barX = kelvinBarX();
+            int barY = kelvinBarY();
+            graphics.blit(KELVIN_GRADIENT, barX, barY, barWidth, 9,
+                    0, 0, 256, 9, 256, 9);
             graphics.fill(barX - 1, barY - 1, barX + barWidth + 1, barY, 0xFFFFFFFF);
             graphics.fill(barX - 1, barY + 9, barX + barWidth + 1, barY + 10, 0xFF4A4A4A);
-            graphics.drawString(font, Component.literal("1000 K"), barX, 116, 0xD7D7D7);
+            int markerX = barX + Math.round((temperature / 18.0F) * (barWidth - 1));
+            graphics.fill(markerX - 1, barY - 2, markerX + 2, barY + 11, 0xFFFFFFFF);
+            graphics.drawString(font, Component.literal("1000 K"), barX, barY + 11, 0xFFD7D7D7);
             graphics.drawString(font, Component.literal("10000 K"),
-                    barX + barWidth - font.width("10000 K"), 116, 0xD7D7D7);
-
+                    barX + barWidth - font.width("10000 K"), barY + 11, 0xFFD7D7D7);
             graphics.drawCenteredString(font,
-                    Component.literal("Parlaklık: " + brightness + " / 15" + (brightness == 0 ? " (Kapalı)" : "")),
-                    width / 2, 158, 0xFFFFFF);
+                    Component.literal("Parlaklık: " + brightness + " / 15"),
+                    center, 168 + offset, 0xFFFFFF);
         } else {
             graphics.drawCenteredString(font, Component.literal("Üç sabit renk seçeneği"),
-                    width / 2, 31, 0xC8D5E5);
+                    center, 34 + offset, 0xC8D5E5);
             graphics.drawCenteredString(font,
-                    Component.literal("Parlaklık: " + brightness + " / 15" + (brightness == 0 ? " (Kapalı)" : "")),
-                    width / 2, 120, 0xFFFFFF);
+                    Component.literal("Parlaklık: " + brightness + " / 15"),
+                    center, 101 + offset, 0xFFFFFF);
         }
+
+        graphics.drawCenteredString(font,
+                Component.literal(powered ? "Lamba açık" : "Lamba kapalı"),
+                center, (modern ? 199 : 143) + offset, powered ? 0xBFFFC7 : 0xFFB8B8);
         graphics.drawCenteredString(font, Component.literal("Işık Kontrol Kumandası"),
-                width / 2, height - 42, 0x9EB8D2);
+                center, height - 40, 0x9EB8D2);
     }
 
     @Override
