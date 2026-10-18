@@ -4,5 +4,21 @@
   "item.gercekciisik.traditional_fluorescent": "Geleneksel Floresan",
   "item.gercekciisik.modern_fluorescent": "Modern Floresan",
   "item.gercekciisik.lighting_remote": "Işık Kontrol Kumandası",
-  "itemGroup.gercekciisik.light_control": "Işık Kontrolü"
+  "itemGroup.gercekciisik.light_control": "Işık Kontrolü",
+  "block.gercekciisik.square_spot": "Kare Spot Işık",
+  "item.gercekciisik.square_spot": "Kare Spot Işık",
+  "block.gercekciisik.round_spot": "Daire Spot Işık",
+  "item.gercekciisik.round_spot": "Daire Spot Işık",
+  "block.gercekciisik.traditional_ring_light": "Geleneksel Simit Armatür",
+  "item.gercekciisik.traditional_ring_light": "Geleneksel Simit Armatür",
+  "block.gercekciisik.modern_ring_light": "Modern Simit LED Armatür",
+  "item.gercekciisik.modern_ring_light": "Modern Simit LED Armatür",
+  "block.gercekciisik.horizontal_led_strip": "Yatay Şerit LED",
+  "item.gercekciisik.horizontal_led_strip": "Yatay Şerit LED",
+  "block.gercekciisik.vertical_led_strip": "Dikey Şerit LED",
+  "item.gercekciisik.vertical_led_strip": "Dikey Şerit LED",
+  "block.gercekciisik.led_ceiling_panel": "LED Yuvalı Tavan Paneli",
+  "item.gercekciisik.led_ceiling_panel": "LED Yuvalı Tavan Paneli",
+  "block.gercekciisik.led_stairs": "LED'li Merdiven",
+  "item.gercekciisik.led_stairs": "LED'li Merdiven"
 }

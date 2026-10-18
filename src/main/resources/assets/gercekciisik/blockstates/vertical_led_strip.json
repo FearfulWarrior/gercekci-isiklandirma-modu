@@ -1,0 +1,56 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "facing": "down"
+      },
+      "apply": {
+        "model": "gercekciisik:block/vertical_led_strip_pendant"
+      }
+    },
+    {
+      "when": {
+        "facing": "up"
+      },
+      "apply": {
+        "model": "gercekciisik:block/vertical_led_strip_pendant",
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "gercekciisik:block/vertical_led_strip_wall"
+      }
+    },
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "gercekciisik:block/vertical_led_strip_wall",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "gercekciisik:block/vertical_led_strip_wall",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "gercekciisik:block/vertical_led_strip_wall",
+        "y": 270
+      }
+    }
+  ]
+}

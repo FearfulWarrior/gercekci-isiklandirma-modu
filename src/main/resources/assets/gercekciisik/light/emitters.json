@@ -187,5 +187,1103 @@
         "color": "#000000;0"
       }
     ]
+  },
+  "gercekciisik:square_spot": {
+    "default": "auto",
+    "variants": [
+      {
+        "state": "powered=false",
+        "color": "#000000;0"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:0}",
+        "color": "#FF3030"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:1}",
+        "color": "#FF8C24"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:2}",
+        "color": "#FFFF36"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:3}",
+        "color": "#53F04D"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:4}",
+        "color": "#36E8D1"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:5}",
+        "color": "#87CEEB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:6}",
+        "color": "#0000FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:7}",
+        "color": "#8847F4"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:8}",
+        "color": "#C154C1"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:9}",
+        "color": "#FFCBDB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:10}",
+        "color": "#E8D8FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:11}",
+        "color": "#FFE0A3"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:12}",
+        "color": "#FFF1DF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:13}",
+        "color": "#FFFFFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:14}",
+        "color": "#C8E8FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:0}",
+        "color": "#FF4400"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:1}",
+        "color": "#FF6C00"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:2}",
+        "color": "#FF890E"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:3}",
+        "color": "#FF9F46"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:4}",
+        "color": "#FFB16E"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:5}",
+        "color": "#FFC18D"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:6}",
+        "color": "#FFCEA6"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:7}",
+        "color": "#FFDABB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:8}",
+        "color": "#FFE4CE"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:9}",
+        "color": "#FFEDDE"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:10}",
+        "color": "#FFF6ED"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:11}",
+        "color": "#FFFEFA"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:12}",
+        "color": "#F3F2FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:13}",
+        "color": "#E6EBFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:14}",
+        "color": "#DDE6FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:15}",
+        "color": "#D7E2FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:16}",
+        "color": "#D2DFFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:17}",
+        "color": "#CDDCFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:18}",
+        "color": "#CADAFF"
+      }
+    ]
+  },
+  "gercekciisik:round_spot": {
+    "default": "auto",
+    "variants": [
+      {
+        "state": "powered=false",
+        "color": "#000000;0"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:0}",
+        "color": "#FF3030"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:1}",
+        "color": "#FF8C24"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:2}",
+        "color": "#FFFF36"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:3}",
+        "color": "#53F04D"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:4}",
+        "color": "#36E8D1"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:5}",
+        "color": "#87CEEB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:6}",
+        "color": "#0000FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:7}",
+        "color": "#8847F4"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:8}",
+        "color": "#C154C1"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:9}",
+        "color": "#FFCBDB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:10}",
+        "color": "#E8D8FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:11}",
+        "color": "#FFE0A3"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:12}",
+        "color": "#FFF1DF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:13}",
+        "color": "#FFFFFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:14}",
+        "color": "#C8E8FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:0}",
+        "color": "#FF4400"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:1}",
+        "color": "#FF6C00"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:2}",
+        "color": "#FF890E"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:3}",
+        "color": "#FF9F46"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:4}",
+        "color": "#FFB16E"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:5}",
+        "color": "#FFC18D"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:6}",
+        "color": "#FFCEA6"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:7}",
+        "color": "#FFDABB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:8}",
+        "color": "#FFE4CE"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:9}",
+        "color": "#FFEDDE"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:10}",
+        "color": "#FFF6ED"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:11}",
+        "color": "#FFFEFA"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:12}",
+        "color": "#F3F2FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:13}",
+        "color": "#E6EBFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:14}",
+        "color": "#DDE6FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:15}",
+        "color": "#D7E2FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:16}",
+        "color": "#D2DFFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:17}",
+        "color": "#CDDCFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:18}",
+        "color": "#CADAFF"
+      }
+    ]
+  },
+  "gercekciisik:modern_ring_light": {
+    "default": "auto",
+    "variants": [
+      {
+        "state": "powered=false",
+        "color": "#000000;0"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:0}",
+        "color": "#FF3030"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:1}",
+        "color": "#FF8C24"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:2}",
+        "color": "#FFFF36"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:3}",
+        "color": "#53F04D"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:4}",
+        "color": "#36E8D1"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:5}",
+        "color": "#87CEEB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:6}",
+        "color": "#0000FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:7}",
+        "color": "#8847F4"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:8}",
+        "color": "#C154C1"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:9}",
+        "color": "#FFCBDB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:10}",
+        "color": "#E8D8FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:11}",
+        "color": "#FFE0A3"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:12}",
+        "color": "#FFF1DF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:13}",
+        "color": "#FFFFFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:14}",
+        "color": "#C8E8FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:0}",
+        "color": "#FF4400"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:1}",
+        "color": "#FF6C00"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:2}",
+        "color": "#FF890E"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:3}",
+        "color": "#FF9F46"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:4}",
+        "color": "#FFB16E"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:5}",
+        "color": "#FFC18D"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:6}",
+        "color": "#FFCEA6"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:7}",
+        "color": "#FFDABB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:8}",
+        "color": "#FFE4CE"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:9}",
+        "color": "#FFEDDE"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:10}",
+        "color": "#FFF6ED"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:11}",
+        "color": "#FFFEFA"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:12}",
+        "color": "#F3F2FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:13}",
+        "color": "#E6EBFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:14}",
+        "color": "#DDE6FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:15}",
+        "color": "#D7E2FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:16}",
+        "color": "#D2DFFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:17}",
+        "color": "#CDDCFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:18}",
+        "color": "#CADAFF"
+      }
+    ]
+  },
+  "gercekciisik:horizontal_led_strip": {
+    "default": "auto",
+    "variants": [
+      {
+        "state": "powered=false",
+        "color": "#000000;0"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:0}",
+        "color": "#FF3030"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:1}",
+        "color": "#FF8C24"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:2}",
+        "color": "#FFFF36"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:3}",
+        "color": "#53F04D"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:4}",
+        "color": "#36E8D1"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:5}",
+        "color": "#87CEEB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:6}",
+        "color": "#0000FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:7}",
+        "color": "#8847F4"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:8}",
+        "color": "#C154C1"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:9}",
+        "color": "#FFCBDB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:10}",
+        "color": "#E8D8FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:11}",
+        "color": "#FFE0A3"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:12}",
+        "color": "#FFF1DF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:13}",
+        "color": "#FFFFFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:14}",
+        "color": "#C8E8FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:0}",
+        "color": "#FF4400"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:1}",
+        "color": "#FF6C00"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:2}",
+        "color": "#FF890E"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:3}",
+        "color": "#FF9F46"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:4}",
+        "color": "#FFB16E"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:5}",
+        "color": "#FFC18D"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:6}",
+        "color": "#FFCEA6"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:7}",
+        "color": "#FFDABB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:8}",
+        "color": "#FFE4CE"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:9}",
+        "color": "#FFEDDE"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:10}",
+        "color": "#FFF6ED"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:11}",
+        "color": "#FFFEFA"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:12}",
+        "color": "#F3F2FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:13}",
+        "color": "#E6EBFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:14}",
+        "color": "#DDE6FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:15}",
+        "color": "#D7E2FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:16}",
+        "color": "#D2DFFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:17}",
+        "color": "#CDDCFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:18}",
+        "color": "#CADAFF"
+      }
+    ]
+  },
+  "gercekciisik:vertical_led_strip": {
+    "default": "auto",
+    "variants": [
+      {
+        "state": "powered=false",
+        "color": "#000000;0"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:0}",
+        "color": "#FF3030"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:1}",
+        "color": "#FF8C24"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:2}",
+        "color": "#FFFF36"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:3}",
+        "color": "#53F04D"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:4}",
+        "color": "#36E8D1"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:5}",
+        "color": "#87CEEB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:6}",
+        "color": "#0000FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:7}",
+        "color": "#8847F4"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:8}",
+        "color": "#C154C1"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:9}",
+        "color": "#FFCBDB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:10}",
+        "color": "#E8D8FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:11}",
+        "color": "#FFE0A3"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:12}",
+        "color": "#FFF1DF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:13}",
+        "color": "#FFFFFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:14}",
+        "color": "#C8E8FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:0}",
+        "color": "#FF4400"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:1}",
+        "color": "#FF6C00"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:2}",
+        "color": "#FF890E"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:3}",
+        "color": "#FF9F46"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:4}",
+        "color": "#FFB16E"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:5}",
+        "color": "#FFC18D"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:6}",
+        "color": "#FFCEA6"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:7}",
+        "color": "#FFDABB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:8}",
+        "color": "#FFE4CE"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:9}",
+        "color": "#FFEDDE"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:10}",
+        "color": "#FFF6ED"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:11}",
+        "color": "#FFFEFA"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:12}",
+        "color": "#F3F2FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:13}",
+        "color": "#E6EBFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:14}",
+        "color": "#DDE6FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:15}",
+        "color": "#D7E2FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:16}",
+        "color": "#D2DFFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:17}",
+        "color": "#CDDCFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:18}",
+        "color": "#CADAFF"
+      }
+    ]
+  },
+  "gercekciisik:led_stairs": {
+    "default": "auto",
+    "variants": [
+      {
+        "state": "powered=false",
+        "color": "#000000;0"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:0}",
+        "color": "#FF3030"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:1}",
+        "color": "#FF8C24"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:2}",
+        "color": "#FFFF36"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:3}",
+        "color": "#53F04D"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:4}",
+        "color": "#36E8D1"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:5}",
+        "color": "#87CEEB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:6}",
+        "color": "#0000FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:7}",
+        "color": "#8847F4"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:8}",
+        "color": "#C154C1"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:9}",
+        "color": "#FFCBDB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:10}",
+        "color": "#E8D8FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:11}",
+        "color": "#FFE0A3"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:12}",
+        "color": "#FFF1DF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:13}",
+        "color": "#FFFFFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:14}",
+        "color": "#C8E8FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:0}",
+        "color": "#FF4400"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:1}",
+        "color": "#FF6C00"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:2}",
+        "color": "#FF890E"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:3}",
+        "color": "#FF9F46"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:4}",
+        "color": "#FFB16E"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:5}",
+        "color": "#FFC18D"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:6}",
+        "color": "#FFCEA6"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:7}",
+        "color": "#FFDABB"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:8}",
+        "color": "#FFE4CE"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:9}",
+        "color": "#FFEDDE"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:10}",
+        "color": "#FFF6ED"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:11}",
+        "color": "#FFFEFA"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:12}",
+        "color": "#F3F2FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:13}",
+        "color": "#E6EBFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:14}",
+        "color": "#DDE6FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:15}",
+        "color": "#D7E2FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:16}",
+        "color": "#D2DFFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:17}",
+        "color": "#CDDCFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:15,LightTemperature:18}",
+        "color": "#CADAFF"
+      }
+    ]
+  },
+  "gercekciisik:traditional_ring_light": {
+    "default": "auto",
+    "variants": [
+      {
+        "state": "powered=false",
+        "color": "#000000;0"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:0}",
+        "color": "#FFFFFF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:1}",
+        "color": "#9FC9FF"
+      },
+      {
+        "state": "powered=true",
+        "nbt": "{LightColor:2}",
+        "color": "#E7C982"
+      }
+    ]
   }
 }

@@ -26,7 +26,9 @@ public final class LampControlScreen extends Screen {
     private static final String[] CLASSIC_COLOR_NAMES = {
             "Soğuk mavi-beyaz", "Beyaz", "Mor-beyaz"
     };
-    private static final int[] CLASSIC_COLOR_RGB = {0xD6E8FF, 0xFFFFFF, 0xE8D8FF};
+    private static final int[] CLASSIC_COLOR_RGB = {0x9FC9FF, 0xFFFFFF, 0xE8D8FF};
+    private static final String[] TRADITIONAL_RING_NAMES = {"Beyaz", "Soğuk beyaz", "Kirli sarı"};
+    private static final int[] TRADITIONAL_RING_RGB = {0xFFFFFF, 0x9FC9FF, 0xE7C982};
     private static final String[] BRIGHTNESS_LABELS = {"Çok düşük", "Düşük", "Orta", "Yüksek", "Çok yüksek"};
     private static final String[] BRIGHTNESS_CAPTIONS = {"Ç.düş.", "Düşük", "Orta", "Yüksek", "Ç.yük."};
     private static final String[] BRIGHTNESS_TOOLTIPS = {
@@ -39,6 +41,7 @@ public final class LampControlScreen extends Screen {
 
     private final BlockPos pos;
     private final boolean modern;
+    private final int paletteMode;
     private int color;
     private int brightnessMode;
     private int temperature;
@@ -46,14 +49,15 @@ public final class LampControlScreen extends Screen {
     private Button powerButton;
 
     public LampControlScreen(BlockPos pos, int color, int brightnessMode, int temperature,
-                             boolean powered, boolean modern) {
-        super(Component.literal(modern ? "Modern Floresan Kontrolü" : "Geleneksel Floresan Kontrolü"));
+                             boolean powered, int paletteMode, String title) {
+        super(Component.literal(title));
         this.pos = pos;
         this.color = color;
         this.brightnessMode = Math.max(0, Math.min(4, brightnessMode));
         this.temperature = temperature;
         this.powered = powered;
-        this.modern = modern;
+        this.paletteMode = paletteMode;
+        this.modern = paletteMode == 1 || paletteMode == 3;
     }
 
     private int verticalOffset() {
@@ -105,22 +109,24 @@ public final class LampControlScreen extends Screen {
                       .bounds(center - 65, 198 + offset, 130, 20).build();
             addRenderableWidget(powerButton);
         } else {
-            int buttonWidth = 46;
-            int buttonHeight = 28;
-            int gap = 10;
-            int totalWidth = CLASSIC_COLOR_NAMES.length * buttonWidth + (CLASSIC_COLOR_NAMES.length - 1) * gap;
+            String[] names = paletteMode == 2 ? TRADITIONAL_RING_NAMES : CLASSIC_COLOR_NAMES;
+            int[] colors = paletteMode == 2 ? TRADITIONAL_RING_RGB : CLASSIC_COLOR_RGB;
+            int buttonWidth = 66;
+            int buttonHeight = 30;
+            int gap = 8;
+            int totalWidth = names.length * buttonWidth + (names.length - 1) * gap;
             int startX = center - totalWidth / 2;
-            int startY = 52 + offset;
-            for (int i = 0; i < CLASSIC_COLOR_NAMES.length; i++) {
-                int index = i;
+            int startY = 48 + offset;
+            for (int i = 0; i < names.length; i++) {
+                final int index = i;
                 addRenderableWidget(new ColorSwatchButton(
                         startX + i * (buttonWidth + gap), startY, buttonWidth, buttonHeight,
-                        index, CLASSIC_COLOR_RGB[i], () -> color, this::selectColor,
-                        Component.literal(CLASSIC_COLOR_NAMES[i])));
+                        index, colors[i], () -> color, this::selectColor,
+                        Component.literal(names[i])));
             }
-            addBrightnessModeButtons(center, 106 + offset, 47, 20);
+            addBrightnessModeButtons(center, 107 + offset, 47, 20);
             powerButton = Button.builder(powerLabel(), b -> togglePower())
-                    .bounds(center - 65, 153 + offset, 130, 20).build();
+                    .bounds(center - 65, 145 + offset, 130, 20).build();
             addRenderableWidget(powerButton);
         }
 

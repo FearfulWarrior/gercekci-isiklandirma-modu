@@ -1,0 +1,46 @@
+{
+  "ambientocclusion": false,
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "gercekciisik:block/diffuser",
+    "diffuser": "gercekciisik:block/diffuser"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        7.15,
+        0
+      ],
+      "to": [
+        16,
+        8.05,
+        0.28
+      ],
+      "faces": {
+        "north": {
+          "texture": "#diffuser",
+          "tintindex": 0
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        8.05,
+        7.72
+      ],
+      "to": [
+        16,
+        8.95,
+        8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#diffuser",
+          "tintindex": 0
+        }
+      }
+    }
+  ]
+}

@@ -53,6 +53,28 @@ jobs:
               "tr/alpegonya/gercekciisik/LampBlockEntity.class",
               "tr/alpegonya/gercekciisik/client/LampControlScreen.class",
               "tr/alpegonya/gercekciisik/client/BrightnessModeButton.class",
+              "tr/alpegonya/gercekciisik/ConfigurableLightBlock.class",
+              "tr/alpegonya/gercekciisik/AdjustableLightBlockEntity.class",
+              "tr/alpegonya/gercekciisik/LedStairBlock.class",
+              "assets/gercekciisik/blockstates/square_spot.json",
+              "assets/gercekciisik/blockstates/round_spot.json",
+              "assets/gercekciisik/blockstates/traditional_ring_light.json",
+              "assets/gercekciisik/blockstates/modern_ring_light.json",
+              "assets/gercekciisik/blockstates/horizontal_led_strip.json",
+              "assets/gercekciisik/blockstates/vertical_led_strip.json",
+              "assets/gercekciisik/blockstates/led_ceiling_panel.json",
+              "assets/gercekciisik/blockstates/led_stairs.json",
+              "assets/gercekciisik/models/block/square_spot.json",
+              "assets/gercekciisik/models/block/round_spot.json",
+              "assets/gercekciisik/models/block/traditional_ring_light.json",
+              "assets/gercekciisik/models/block/modern_ring_light.json",
+              "assets/gercekciisik/models/block/horizontal_led_strip.json",
+              "assets/gercekciisik/models/block/vertical_led_strip_wall.json",
+              "assets/gercekciisik/models/block/vertical_led_strip_pendant.json",
+              "assets/gercekciisik/models/block/led_ceiling_panel.json",
+              "assets/gercekciisik/models/block/led_stair_glow.json",
+              "assets/gercekciisik/textures/block/ceiling_panel.png",
+              "assets/gercekciisik/textures/block/ring_housing.png",
           ]
           with zipfile.ZipFile(jar) as z:
               names = set(z.namelist())
@@ -73,6 +95,12 @@ jobs:
               assert traditional[-1]["state"] == "powered=false" and traditional[-1]["color"] == "#000000;0"
               assert modern[-1]["state"] == "powered=false" and modern[-1]["color"] == "#000000;0"
               assert sum(1 for item in modern if "nbt" in item) == 19
+              for ident in ["square_spot", "round_spot", "traditional_ring_light", "modern_ring_light",
+                            "horizontal_led_strip", "vertical_led_strip", "led_stairs"]:
+                  entry = emitter[f"gercekciisik:{ident}"]
+                  assert entry["default"] == "auto", f"{ident} should sample dynamically"
+                  assert any(item["state"] == "powered=false" and item["color"] == "#000000;0"
+                             for item in entry["variants"])
               pngs = [n for n in names if n.endswith(".png") and n.startswith("assets/gercekciisik/")]
               for name in pngs:
                   data = z.read(name)
