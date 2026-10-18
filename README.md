@@ -7,7 +7,7 @@ Minecraft Java Edition 1.20.1 + Forge 47.2.0 için geliştirme sürümü.
 - Kare ve daire spot ışıkları.
 - Geleneksel simit armatür (beyaz, soğuk beyaz, kirli sarı) ve modern RGB/Kelvin simit armatür.
 - Yatay ve dikey şerit LED'ler; aynı doğrultuda bitişik segmentler kumandayla bir grup olarak ayarlanır.
-- Spot ve yatay LED şerit yerleştirmeye uygun LED yuvalı tavan paneli.
+- LED yuvalı tavan paneli: altına yalnızca kare spot, daire spot veya yatay şerit LED takılabilir; bu armatürler normal tavan, duvar ve zemine de yerleştirilebilir.
 - Ahşap görünümlü, basamak yükseltilerinde renk ayarlı ışık çizgileri olan yeni LED merdiven bloğu.
 - Işık Kontrol Kumandası: renk kareleri, Kelvin sıcaklığı, beş parlaklık seviyesi ve güç anahtarı.
 

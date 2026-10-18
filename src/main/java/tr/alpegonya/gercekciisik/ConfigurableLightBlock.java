@@ -88,7 +88,17 @@ public final class ConfigurableLightBlock extends DirectionalBlock implements En
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         Direction facing = state.getValue(FACING);
         BlockPos supportPos = pos.relative(facing.getOpposite());
-        return level.getBlockState(supportPos).isFaceSturdy(level, supportPos, facing);
+        BlockState support = level.getBlockState(supportPos);
+
+        // The dedicated recessed ceiling tile is intentionally a three-fixture installation surface:
+        // square spot, round spot, and horizontal strip only, all mounted on its underside.
+        if (support.is(GercekciIsikMod.LED_CEILING_PANEL.get())) {
+            return facing == Direction.DOWN
+                    && (this == GercekciIsikMod.SQUARE_SPOT.get()
+                    || this == GercekciIsikMod.ROUND_SPOT.get()
+                    || this == GercekciIsikMod.HORIZONTAL_LED_STRIP.get());
+        }
+        return support.isFaceSturdy(level, supportPos, facing);
     }
 
     @Override
