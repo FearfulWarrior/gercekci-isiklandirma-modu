@@ -1,0 +1,24 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="gercekciisik"
+version="${version}"
+displayName="Gerçekçi Işıklandırma Modu"
+authors="FearfulWarrior"
+description='''Forge 1.20.1 için kare floresan lambalar ve ışık kontrol kumandası.'''
+
+[[dependencies.gercekciisik]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.gercekciisik]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.20.2)"
+ordering="NONE"
+side="BOTH"

@@ -1,0 +1,10 @@
+{
+  "multipart": [
+    { "when": { "facing": "down" }, "apply": { "model": "gercekciisik:block/modern_panel" } },
+    { "when": { "facing": "up" }, "apply": { "model": "gercekciisik:block/modern_panel", "x": 180 } },
+    { "when": { "facing": "north" }, "apply": { "model": "gercekciisik:block/modern_panel", "x": 90 } },
+    { "when": { "facing": "south" }, "apply": { "model": "gercekciisik:block/modern_panel", "x": 270 } },
+    { "when": { "facing": "west" }, "apply": { "model": "gercekciisik:block/modern_panel", "x": 90, "y": 90 } },
+    { "when": { "facing": "east" }, "apply": { "model": "gercekciisik:block/modern_panel", "x": 90, "y": 270 } }
+  ]
+}

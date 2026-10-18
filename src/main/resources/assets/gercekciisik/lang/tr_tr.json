@@ -1,0 +1,8 @@
+{
+  "block.gercekciisik.traditional_fluorescent": "Geleneksel Floresan (Alüminyum Izgaralı)",
+  "block.gercekciisik.modern_fluorescent": "Modern Floresan (LED Panel)",
+  "item.gercekciisik.traditional_fluorescent": "Geleneksel Floresan",
+  "item.gercekciisik.modern_fluorescent": "Modern Floresan",
+  "item.gercekciisik.lighting_remote": "Işık Kontrol Kumandası",
+  "itemGroup.gercekciisik.light_control": "Işık Kontrolü"
+}

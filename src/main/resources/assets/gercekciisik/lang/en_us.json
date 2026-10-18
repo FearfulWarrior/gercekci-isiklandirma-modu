@@ -1,0 +1,8 @@
+{
+  "block.gercekciisik.traditional_fluorescent": "Traditional Fluorescent (Parabolic Louver)",
+  "block.gercekciisik.modern_fluorescent": "Modern Fluorescent (LED Panel)",
+  "item.gercekciisik.traditional_fluorescent": "Traditional Fluorescent",
+  "item.gercekciisik.modern_fluorescent": "Modern Fluorescent",
+  "item.gercekciisik.lighting_remote": "Light Control Remote",
+  "itemGroup.gercekciisik.light_control": "Lighting Control"
+}
