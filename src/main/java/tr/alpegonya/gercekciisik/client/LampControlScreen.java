@@ -118,10 +118,10 @@ public final class LampControlScreen extends Screen {
         color = Math.max(0, Math.min(max, selected));
         if (modern) {
             temperature = switch (selected) {
-                case 11 -> 4;  // ~3000 K
-                case 12 -> 8;  // 5000 K
-                case 13 -> 9;  // 5500 K
-                case 14 -> 13; // 7500 K
+                case 11 -> 4;
+                case 12 -> 8;
+                case 13 -> 9;
+                case 14 -> 13;
                 default -> temperature;
             };
         }
@@ -168,8 +168,7 @@ public final class LampControlScreen extends Screen {
                 && mouseX >= kelvinBarX() && mouseX < kelvinBarX() + kelvinBarWidth()
                 && mouseY >= kelvinBarY() && mouseY < kelvinBarY() + 9) {
             double fraction = (mouseX - kelvinBarX()) / Math.max(1.0, kelvinBarWidth() - 1.0);
-            temperature = (int) Math.round(fraction * 18.0);
-            temperature = Math.max(0, Math.min(18, temperature));
+            temperature = Math.max(0, Math.min(18, (int) Math.round(fraction * 18.0)));
             color = LampBlock.MODERN_KELVIN_COLOR;
             send();
             return true;
@@ -190,7 +189,6 @@ public final class LampControlScreen extends Screen {
             graphics.drawCenteredString(font,
                     Component.literal("Renk sıcaklığı: " + (1000 + temperature * 500) + " K"),
                     center, 106 + offset, 0xFFFFFF);
-
             int barWidth = kelvinBarWidth();
             int barX = kelvinBarX();
             int barY = kelvinBarY();
@@ -203,20 +201,19 @@ public final class LampControlScreen extends Screen {
             graphics.drawString(font, Component.literal("1000 K"), barX, barY + 11, 0xFFD7D7D7);
             graphics.drawString(font, Component.literal("10000 K"),
                     barX + barWidth - font.width("10000 K"), barY + 11, 0xFFD7D7D7);
-            graphics.drawCenteredString(font,
-                    Component.literal("Parlaklık: " + brightness + " / 15"),
+            graphics.drawCenteredString(font, Component.literal("Parlaklık: " + brightness + " / 15"),
                     center, 168 + offset, 0xFFFFFF);
+            graphics.drawCenteredString(font, Component.literal(powered ? "Lamba açık" : "Lamba kapalı"),
+                    center, 199 + offset, powered ? 0xBFFFC7 : 0xFFB8B8);
         } else {
             graphics.drawCenteredString(font, Component.literal("Üç sabit renk seçeneği"),
                     center, 34 + offset, 0xC8D5E5);
-            graphics.drawCenteredString(font,
-                    Component.literal("Parlaklık: " + brightness + " / 15"),
+            graphics.drawCenteredString(font, Component.literal("Parlaklık: " + brightness + " / 15"),
                     center, 101 + offset, 0xFFFFFF);
+            graphics.drawCenteredString(font, Component.literal(powered ? "Lamba açık" : "Lamba kapalı"),
+                    center, 143 + offset, powered ? 0xBFFFC7 : 0xFFB8B8);
         }
 
-        graphics.drawCenteredString(font,
-                Component.literal(powered ? "Lamba açık" : "Lamba kapalı"),
-                center, (modern ? 199 : 143) + offset, powered ? 0xBFFFC7 : 0xFFB8B8);
         graphics.drawCenteredString(font, Component.literal("Işık Kontrol Kumandası"),
                 center, height - 40, 0x9EB8D2);
     }

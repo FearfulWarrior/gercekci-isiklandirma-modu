@@ -84,14 +84,23 @@ public final class ModNetwork {
                 int safeColor = Math.max(0, Math.min(maxColor, packet.color));
                 int safeBrightness = Math.max(0, Math.min(15, packet.brightness));
                 int safeTemperature = Math.max(0, Math.min(18, packet.temperature));
-                BlockState configured = state.setValue(LampBlock.COLOR, safeColor)
-                        .setValue(LampBlock.BRIGHTNESS, safeBrightness)
-                        .setValue(LampBlock.TEMPERATURE, safeTemperature)
-                        .setValue(LampBlock.POWERED, packet.powered);
 
-                // Don't trigger a block/light update when the chosen configuration is unchanged.
-                if (!configured.equals(state)) {
+                BlockState configured = state.setValue(LampBlock.BRIGHTNESS, safeBrightness)
+                        .setValue(LampBlock.POWERED, packet.powered);
+                boolean stateChanged = !configured.equals(state);
+                if (stateChanged) {
                     level.setBlock(packet.pos, configured, 3);
+                }
+
+                if (level.getBlockEntity(packet.pos) instanceof LampBlockEntity data) {
+                    boolean colorChanged = data.setColorAndTemperature(safeColor, safeTemperature);
+                    if (colorChanged) {
+                        data.setChanged();
+                    }
+                    if (stateChanged || colorChanged) {
+                        BlockState current = level.getBlockState(packet.pos);
+                        level.sendBlockUpdated(packet.pos, current, current, 3);
+                    }
                 }
             });
             context.setPacketHandled(true);

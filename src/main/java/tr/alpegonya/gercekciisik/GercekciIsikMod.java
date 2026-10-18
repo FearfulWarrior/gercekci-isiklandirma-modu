@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -26,6 +27,8 @@ public final class GercekciIsikMod {
             DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
     public static final DeferredRegister<CreativeModeTab> TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES =
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MOD_ID);
 
     public static final RegistryObject<LampBlock> TRADITIONAL_FLUORESCENT =
             BLOCKS.register("traditional_fluorescent", () -> new LampBlock(false,
@@ -33,6 +36,10 @@ public final class GercekciIsikMod {
     public static final RegistryObject<LampBlock> MODERN_FLUORESCENT =
             BLOCKS.register("modern_fluorescent", () -> new LampBlock(true,
                     BlockBehaviour.Properties.of().strength(0.3F).sound(SoundType.GLASS).noOcclusion()));
+
+    public static final RegistryObject<BlockEntityType<LampBlockEntity>> LAMP_BLOCK_ENTITY =
+            BLOCK_ENTITY_TYPES.register("lamp", () -> BlockEntityType.Builder.of(
+                    LampBlockEntity::new, TRADITIONAL_FLUORESCENT.get(), MODERN_FLUORESCENT.get()).build(null));
 
     public static final RegistryObject<Item> TRADITIONAL_ITEM =
             ITEMS.register("traditional_fluorescent",
@@ -59,6 +66,7 @@ public final class GercekciIsikMod {
         BLOCKS.register(modBus);
         ITEMS.register(modBus);
         TABS.register(modBus);
+        BLOCK_ENTITY_TYPES.register(modBus);
         ModNetwork.register();
     }
 }

@@ -23,9 +23,13 @@ public final class LightingRemoteItem extends Item {
         }
 
         if (level.isClientSide) {
-            int color = state.getValue(LampBlock.COLOR);
+            int color = lamp.isModern() ? 13 : 0;
+            int temperature = 9;
+            if (level.getBlockEntity(pos) instanceof LampBlockEntity data) {
+                color = data.getColor();
+                temperature = data.getTemperature();
+            }
             int brightness = state.getValue(LampBlock.BRIGHTNESS);
-            int temperature = state.getValue(LampBlock.TEMPERATURE);
             boolean powered = state.getValue(LampBlock.POWERED);
             boolean modern = lamp.isModern();
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT,

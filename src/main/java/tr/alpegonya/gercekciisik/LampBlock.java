@@ -10,9 +10,11 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -22,13 +24,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public final class LampBlock extends DirectionalBlock {
-    public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 15);
+public final class LampBlock extends DirectionalBlock implements EntityBlock {
+    // Only rapidly changing light state stays in BlockState. Color and Kelvin are saved in the BE.
     public static final IntegerProperty BRIGHTNESS = IntegerProperty.create("brightness", 0, 15);
-    public static final IntegerProperty TEMPERATURE = IntegerProperty.create("temperature", 0, 18);
     public static final BooleanProperty POWERED = BooleanProperty.create("powered");
-
-    // Fifteen visible swatches (indices 0..14); index 15 is the custom Kelvin mode.
     public static final int MODERN_COLOR_COUNT = 15;
     public static final int MODERN_KELVIN_COLOR = 15;
 
@@ -47,14 +46,17 @@ public final class LampBlock extends DirectionalBlock {
         this.modern = modern;
         registerDefaultState(stateDefinition.any()
                 .setValue(FACING, Direction.DOWN)
-                .setValue(COLOR, modern ? 13 : 0)
                 .setValue(BRIGHTNESS, 15)
-                .setValue(TEMPERATURE, 9)
                 .setValue(POWERED, true));
     }
 
     public boolean isModern() {
         return modern;
+    }
+
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new LampBlockEntity(pos, state);
     }
 
     @Override
@@ -103,7 +105,7 @@ public final class LampBlock extends DirectionalBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, COLOR, BRIGHTNESS, TEMPERATURE, POWERED);
+        builder.add(FACING, BRIGHTNESS, POWERED);
     }
 
     @Override
@@ -124,21 +126,21 @@ public final class LampBlock extends DirectionalBlock {
             };
         }
         return switch (Mth.clamp(color, 0, MODERN_KELVIN_COLOR)) {
-            case 0 -> 0xFF3030;  // Kırmızı
-            case 1 -> 0xFF8C24;  // Turuncu
-            case 2 -> 0xFFFF36;  // Sarı
-            case 3 -> 0x53F04D;  // Yeşil
-            case 4 -> 0x36E8D1;  // Turkuaz
-            case 5 -> 0x87CEEB;  // Gökyüzü mavisi
-            case 6 -> 0x0000FF;  // Saf mavi
-            case 7 -> 0x8847F4;  // Mor
-            case 8 -> 0xC154C1;  // Eflatun
-            case 9 -> 0xFFCBDB;  // Kullanıcının gönderdiği pembe
-            case 10 -> 0xE8D8FF; // Mor-beyaz
-            case 11 -> 0xFFE0A3; // Sıcak beyaz
-            case 12 -> 0xFFF1DF; // Günışığı
-            case 13 -> 0xFFFFFF; // Beyaz
-            case 14 -> 0xC8E8FF; // Soğuk beyaz
+            case 0 -> 0xFF3030;
+            case 1 -> 0xFF8C24;
+            case 2 -> 0xFFFF36;
+            case 3 -> 0x53F04D;
+            case 4 -> 0x36E8D1;
+            case 5 -> 0x87CEEB;
+            case 6 -> 0x0000FF;
+            case 7 -> 0x8847F4;
+            case 8 -> 0xC154C1;
+            case 9 -> 0xFFCBDB;
+            case 10 -> 0xE8D8FF;
+            case 11 -> 0xFFE0A3;
+            case 12 -> 0xFFF1DF;
+            case 13 -> 0xFFFFFF;
+            case 14 -> 0xC8E8FF;
             default -> fromKelvin(1000 + Mth.clamp(temperatureIndex, 0, 18) * 500);
         };
     }
