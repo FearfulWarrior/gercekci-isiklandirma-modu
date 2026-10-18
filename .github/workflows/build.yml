@@ -94,11 +94,6 @@ jobs:
           test -n "$JAR"
           cp "$JAR" "Gerçekçi Işıklandırma Modu 0.1.0.jar"
           cp "$JAR" "Gercekci-Isiklandirma-Modu-0.1.0.jar"
-      - name: Prepare JAR with requested filename
-        run: |
-          JAR=$(find build/libs -maxdepth 1 -name '*.jar' ! -name '*-sources.jar' | head -n 1)
-          test -n "$JAR"
-          cp "$JAR" "Gerçekçi Işıklandırma Modu 0.1.0.jar"
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
