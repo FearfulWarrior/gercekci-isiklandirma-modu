@@ -3,6 +3,7 @@ package tr.alpegonya.gercekciisik.client;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 
 import java.util.function.IntConsumer;
@@ -39,7 +40,12 @@ public final class ColorSwatchButton extends AbstractWidget {
     }
 
     @Override
-    protected void onClick(double mouseX, double mouseY) {
+    public void onClick(double mouseX, double mouseY) {
         onSelect.accept(index);
+    }
+
+    @Override
+    protected void updateWidgetNarration(NarrationElementOutput output) {
+        defaultButtonNarrationText(output);
     }
 }

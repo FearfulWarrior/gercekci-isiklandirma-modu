@@ -23,15 +23,17 @@ public final class LightingRemoteItem extends Item {
         }
 
         if (level.isClientSide) {
-            int color = lamp.isModern() ? 13 : 0;
-            int temperature = 9;
+            int currentColor = lamp.isModern() ? 13 : 0;
+            int currentTemperature = 9;
             if (level.getBlockEntity(pos) instanceof LampBlockEntity data) {
-                color = data.getColor();
-                temperature = data.getTemperature();
+                currentColor = data.getColor();
+                currentTemperature = data.getTemperature();
             }
-            int brightness = state.getValue(LampBlock.BRIGHTNESS);
-            boolean powered = state.getValue(LampBlock.POWERED);
-            boolean modern = lamp.isModern();
+            final int color = currentColor;
+            final int temperature = currentTemperature;
+            final int brightness = state.getValue(LampBlock.BRIGHTNESS);
+            final boolean powered = state.getValue(LampBlock.POWERED);
+            final boolean modern = lamp.isModern();
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
                     () -> () -> tr.alpegonya.gercekciisik.client.ClientScreenOpener.open(
                             pos, color, brightness, temperature, powered, modern));
