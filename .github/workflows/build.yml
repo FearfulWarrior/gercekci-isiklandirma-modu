@@ -64,8 +64,15 @@ jobs:
                   if name.endswith(".json"):
                       json.loads(z.read(name).decode("utf-8"))
               emitter = json.loads(z.read("assets/gercekciisik/light/emitters.json").decode("utf-8"))
-              assert len(emitter["gercekciisik:traditional_fluorescent"]["variants"]) == 16
-              assert len(emitter["gercekciisik:modern_fluorescent"]["variants"]) == 171
+              traditional = emitter["gercekciisik:traditional_fluorescent"]["variants"]
+              modern = emitter["gercekciisik:modern_fluorescent"]["variants"]
+              assert len(traditional) == 4, f"Unexpected traditional emitter rules: {len(traditional)}"
+              assert len(modern) == 36, f"Unexpected modern emitter rules: {len(modern)}"
+              assert all(item["color"] == "auto" for item in traditional[:-1])
+              assert all(item["color"] == "auto" for item in modern[:-1])
+              assert traditional[-1]["state"] == "powered=false" and traditional[-1]["color"] == "#000000;0"
+              assert modern[-1]["state"] == "powered=false" and modern[-1]["color"] == "#000000;0"
+              assert sum(1 for item in modern if "nbt" in item) == 19
               pngs = [n for n in names if n.endswith(".png") and n.startswith("assets/gercekciisik/")]
               for name in pngs:
                   data = z.read(name)
