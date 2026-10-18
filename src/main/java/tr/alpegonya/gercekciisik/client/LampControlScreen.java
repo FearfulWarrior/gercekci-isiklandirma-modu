@@ -34,6 +34,7 @@ public final class LampControlScreen extends Screen {
     private int brightness;
     private int temperature;
     private boolean powered;
+    private Button powerButton;
 
     public LampControlScreen(BlockPos pos, int color, int brightness, int temperature,
                              boolean powered, boolean modern) {
@@ -81,8 +82,9 @@ public final class LampControlScreen extends Screen {
                     .bounds(center - 65, 181 + offset, 40, 18).build());
             addRenderableWidget(Button.builder(Component.literal("+"), b -> changeBrightness(1))
                     .bounds(center + 25, 181 + offset, 40, 18).build());
-            addRenderableWidget(Button.builder(powerLabel(), b -> togglePower())
-                    .bounds(center - 65, 208 + offset, 130, 20).build());
+            powerButton = Button.builder(powerLabel(), b -> togglePower())
+                    .bounds(center - 65, 208 + offset, 130, 20).build();
+            addRenderableWidget(powerButton);
         } else {
             int buttonWidth = 46;
             int buttonHeight = 28;
@@ -101,8 +103,9 @@ public final class LampControlScreen extends Screen {
                     .bounds(center - 65, 122 + offset, 40, 18).build());
             addRenderableWidget(Button.builder(Component.literal("+"), b -> changeBrightness(1))
                     .bounds(center + 25, 122 + offset, 40, 18).build());
-            addRenderableWidget(Button.builder(powerLabel(), b -> togglePower())
-                    .bounds(center - 65, 153 + offset, 130, 20).build());
+            powerButton = Button.builder(powerLabel(), b -> togglePower())
+                    .bounds(center - 65, 153 + offset, 130, 20).build();
+            addRenderableWidget(powerButton);
         }
 
         addRenderableWidget(Button.builder(Component.literal("Kapat"), b -> onClose())
@@ -142,8 +145,9 @@ public final class LampControlScreen extends Screen {
     private void togglePower() {
         powered = !powered;
         send();
-        clearWidgets();
-        init();
+        if (powerButton != null) {
+            powerButton.setMessage(powerLabel());
+        }
     }
 
     private void send() {
