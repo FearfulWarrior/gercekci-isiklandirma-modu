@@ -1,3 +1,6 @@
 {
-  "parent": "gercekciisik:block/modern_panel"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "gercekciisik:item/modern_fluorescent"
+  }
 }

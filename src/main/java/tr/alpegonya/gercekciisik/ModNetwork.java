@@ -26,29 +26,33 @@ public final class ModNetwork {
                 ConfigureLampPacket::encode, ConfigureLampPacket::decode, ConfigureLampPacket::handle);
     }
 
-    public static void sendConfig(BlockPos pos, int color, int brightness) {
-        CHANNEL.sendToServer(new ConfigureLampPacket(pos, color, brightness));
+    public static void sendConfig(BlockPos pos, int color, int brightness, int temperature) {
+        CHANNEL.sendToServer(new ConfigureLampPacket(pos, color, brightness, temperature));
     }
 
     public static final class ConfigureLampPacket {
         private final BlockPos pos;
         private final int color;
         private final int brightness;
+        private final int temperature;
 
-        public ConfigureLampPacket(BlockPos pos, int color, int brightness) {
+        public ConfigureLampPacket(BlockPos pos, int color, int brightness, int temperature) {
             this.pos = pos;
             this.color = color;
             this.brightness = brightness;
+            this.temperature = temperature;
         }
 
         private static void encode(ConfigureLampPacket packet, FriendlyByteBuf buffer) {
             buffer.writeBlockPos(packet.pos);
             buffer.writeVarInt(packet.color);
             buffer.writeVarInt(packet.brightness);
+            buffer.writeVarInt(packet.temperature);
         }
 
         private static ConfigureLampPacket decode(FriendlyByteBuf buffer) {
-            return new ConfigureLampPacket(buffer.readBlockPos(), buffer.readVarInt(), buffer.readVarInt());
+            return new ConfigureLampPacket(buffer.readBlockPos(), buffer.readVarInt(),
+                    buffer.readVarInt(), buffer.readVarInt());
         }
 
         private static void handle(ConfigureLampPacket packet, Supplier<NetworkEvent.Context> contextSupplier) {
@@ -75,8 +79,10 @@ public final class ModNetwork {
                 int maxColor = lamp.isModern() ? LampBlock.MODERN_COLOR_COUNT - 1 : 2;
                 int safeColor = Math.max(0, Math.min(maxColor, packet.color));
                 int safeBrightness = Math.max(0, Math.min(15, packet.brightness));
+                int safeTemperature = Math.max(0, Math.min(18, packet.temperature));
                 BlockState configured = state.setValue(LampBlock.COLOR, safeColor)
-                        .setValue(LampBlock.BRIGHTNESS, safeBrightness);
+                        .setValue(LampBlock.BRIGHTNESS, safeBrightness)
+                        .setValue(LampBlock.TEMPERATURE, safeTemperature);
                 level.setBlock(packet.pos, configured, 3);
             });
             context.setPacketHandled(true);

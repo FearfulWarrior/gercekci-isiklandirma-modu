@@ -20,29 +20,16 @@ public final class ClientEvents {
             if (tintIndex != 0 || !(state.getBlock() instanceof LampBlock lamp)) {
                 return 0xFFFFFF;
             }
-            return LampBlock.rgb(state.getValue(LampBlock.COLOR), lamp.isModern());
+            return LampBlock.rgb(state.getValue(LampBlock.COLOR), lamp.isModern(),
+                    state.getValue(LampBlock.TEMPERATURE));
         }, GercekciIsikMod.TRADITIONAL_FLUORESCENT.get(), GercekciIsikMod.MODERN_FLUORESCENT.get());
     }
 
     @SubscribeEvent
-    public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
-        event.register((stack, tintIndex) -> {
-            if (tintIndex != 0) {
-                return 0xFFFFFF;
-            }
-            if (stack.getItem() == GercekciIsikMod.TRADITIONAL_ITEM.get()) {
-                return LampBlock.rgb(0, false);
-            }
-            if (stack.getItem() == GercekciIsikMod.MODERN_ITEM.get()) {
-                return LampBlock.rgb(12, true);
-            }
-            return 0xFFFFFF;
-        }, GercekciIsikMod.TRADITIONAL_ITEM.get(), GercekciIsikMod.MODERN_ITEM.get());
-    }
-
-    @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> ItemBlockRenderTypes.setRenderLayer(
-                GercekciIsikMod.TRADITIONAL_FLUORESCENT.get(), RenderType.cutout()));
+        event.enqueueWork(() -> {
+            ItemBlockRenderTypes.setRenderLayer(GercekciIsikMod.TRADITIONAL_FLUORESCENT.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(GercekciIsikMod.MODERN_FLUORESCENT.get(), RenderType.cutout());
+        });
     }
 }
