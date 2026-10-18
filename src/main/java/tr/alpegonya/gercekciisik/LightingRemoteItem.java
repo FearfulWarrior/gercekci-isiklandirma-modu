@@ -24,7 +24,7 @@ public final class LightingRemoteItem extends Item {
             int temperature = 9;
             if (level.getBlockEntity(pos) instanceof LampBlockEntity data) temperature = data.getTemperature();
             final int color = state.getValue(LampBlock.COLOR);
-            final int brightnessMode = state.getValue(LampBlock.BRIGHTNESS);
+            final int brightnessMode = LampBlock.modeForLightLevel(state.getValue(LampBlock.BRIGHTNESS));
             final int safeTemperature = temperature;
             final boolean powered = state.getValue(LampBlock.POWERED);
             final boolean modern = lamp.isModern();

@@ -27,7 +27,7 @@ public final class LampBlock extends DirectionalBlock implements EntityBlock {
     // Color is a BlockState property so selecting another hue rebuilds the model immediately.
     public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 15);
     // Five brightness modes: very low, low, medium, high, very high.
-    public static final IntegerProperty BRIGHTNESS = IntegerProperty.create("brightness", 0, 4);
+    public static final IntegerProperty BRIGHTNESS = IntegerProperty.create("brightness", 0, 15);
     public static final BooleanProperty POWERED = BooleanProperty.create("powered");
     public static final int MODERN_COLOR_COUNT = 15;
     public static final int MODERN_KELVIN_COLOR = 15;
@@ -44,17 +44,32 @@ public final class LampBlock extends DirectionalBlock implements EntityBlock {
 
     public LampBlock(boolean modern, BlockBehaviour.Properties properties) {
         super(properties.lightLevel(state ->
-                state.getValue(POWERED) ? lightLevelForMode(state.getValue(BRIGHTNESS)) : 0));
+                state.getValue(POWERED) ? state.getValue(BRIGHTNESS) : 0));
         this.modern = modern;
         registerDefaultState(stateDefinition.any()
                 .setValue(FACING, Direction.DOWN)
                 .setValue(COLOR, modern ? 13 : 0)
-                .setValue(BRIGHTNESS, modern ? 2 : 3)
+                .setValue(BRIGHTNESS, modern ? 6 : 8)
                 .setValue(POWERED, true));
     }
 
     public static int lightLevelForMode(int mode) {
         return LIGHT_LEVELS[Mth.clamp(mode, 0, LIGHT_LEVELS.length - 1)];
+    }
+
+    // Keeps the old 0..15 saved blockstate range compatible with worlds made by earlier builds.
+    public static int modeForLightLevel(int level) {
+        int safeLevel = Mth.clamp(level, 0, 15);
+        int bestMode = 0;
+        int bestDistance = Integer.MAX_VALUE;
+        for (int mode = 0; mode < LIGHT_LEVELS.length; mode++) {
+            int distance = Math.abs(LIGHT_LEVELS[mode] - safeLevel);
+            if (distance < bestDistance) {
+                bestDistance = distance;
+                bestMode = mode;
+            }
+        }
+        return bestMode;
     }
 
     public boolean isModern() {

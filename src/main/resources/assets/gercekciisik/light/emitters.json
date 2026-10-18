@@ -3,63 +3,63 @@
     "default": "vanilla",
     "variants": [
       {
-        "state": "powered=true,color=0,brightness=0",
+        "state": "powered=true,color=0,brightness=2",
         "color": "#D6E8FF;2"
       },
       {
-        "state": "powered=true,color=0,brightness=1",
+        "state": "powered=true,color=0,brightness=4",
         "color": "#D6E8FF;4"
       },
       {
-        "state": "powered=true,color=0,brightness=2",
+        "state": "powered=true,color=0,brightness=6",
         "color": "#D6E8FF;6"
       },
       {
-        "state": "powered=true,color=0,brightness=3",
+        "state": "powered=true,color=0,brightness=8",
         "color": "#D6E8FF;8"
       },
       {
-        "state": "powered=true,color=0,brightness=4",
+        "state": "powered=true,color=0,brightness=15",
         "color": "#D6E8FF;F"
       },
       {
-        "state": "powered=true,color=1,brightness=0",
+        "state": "powered=true,color=1,brightness=2",
         "color": "#FFFFFF;2"
       },
       {
-        "state": "powered=true,color=1,brightness=1",
+        "state": "powered=true,color=1,brightness=4",
         "color": "#FFFFFF;4"
       },
       {
-        "state": "powered=true,color=1,brightness=2",
+        "state": "powered=true,color=1,brightness=6",
         "color": "#FFFFFF;6"
       },
       {
-        "state": "powered=true,color=1,brightness=3",
+        "state": "powered=true,color=1,brightness=8",
         "color": "#FFFFFF;8"
       },
       {
-        "state": "powered=true,color=1,brightness=4",
+        "state": "powered=true,color=1,brightness=15",
         "color": "#FFFFFF;F"
       },
       {
-        "state": "powered=true,color=2,brightness=0",
+        "state": "powered=true,color=2,brightness=2",
         "color": "#E8D8FF;2"
       },
       {
-        "state": "powered=true,color=2,brightness=1",
+        "state": "powered=true,color=2,brightness=4",
         "color": "#E8D8FF;4"
       },
       {
-        "state": "powered=true,color=2,brightness=2",
+        "state": "powered=true,color=2,brightness=6",
         "color": "#E8D8FF;6"
       },
       {
-        "state": "powered=true,color=2,brightness=3",
+        "state": "powered=true,color=2,brightness=8",
         "color": "#E8D8FF;8"
       },
       {
-        "state": "powered=true,color=2,brightness=4",
+        "state": "powered=true,color=2,brightness=15",
         "color": "#E8D8FF;F"
       },
       {
@@ -72,778 +72,778 @@
     "default": "vanilla",
     "variants": [
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:0}",
         "color": "#FF4400;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:1}",
         "color": "#FF6C00;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:2}",
         "color": "#FF890E;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:3}",
         "color": "#FF9F46;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:4}",
         "color": "#FFB16E;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:5}",
         "color": "#FFC18D;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:6}",
         "color": "#FFCEA6;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:7}",
         "color": "#FFDABB;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:8}",
         "color": "#FFE4CE;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:9}",
         "color": "#FFEDDE;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:10}",
         "color": "#FFF6ED;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:11}",
         "color": "#FFFEFA;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:12}",
         "color": "#F3F2FF;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:13}",
         "color": "#E6EBFF;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:14}",
         "color": "#DDE6FF;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:15}",
         "color": "#D7E2FF;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:16}",
         "color": "#D2DFFF;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:17}",
         "color": "#CDDCFF;2"
       },
       {
-        "state": "powered=true,color=15,brightness=0",
+        "state": "powered=true,color=15,brightness=2",
         "nbt": "{LampTemperature:18}",
         "color": "#CADAFF;2"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:0}",
         "color": "#FF4400;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:1}",
         "color": "#FF6C00;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:2}",
         "color": "#FF890E;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:3}",
         "color": "#FF9F46;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:4}",
         "color": "#FFB16E;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:5}",
         "color": "#FFC18D;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:6}",
         "color": "#FFCEA6;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:7}",
         "color": "#FFDABB;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:8}",
         "color": "#FFE4CE;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:9}",
         "color": "#FFEDDE;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:10}",
         "color": "#FFF6ED;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:11}",
         "color": "#FFFEFA;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:12}",
         "color": "#F3F2FF;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:13}",
         "color": "#E6EBFF;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:14}",
         "color": "#DDE6FF;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:15}",
         "color": "#D7E2FF;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:16}",
         "color": "#D2DFFF;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:17}",
         "color": "#CDDCFF;4"
       },
       {
-        "state": "powered=true,color=15,brightness=1",
+        "state": "powered=true,color=15,brightness=4",
         "nbt": "{LampTemperature:18}",
         "color": "#CADAFF;4"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:0}",
         "color": "#FF4400;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:1}",
         "color": "#FF6C00;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:2}",
         "color": "#FF890E;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:3}",
         "color": "#FF9F46;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:4}",
         "color": "#FFB16E;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:5}",
         "color": "#FFC18D;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:6}",
         "color": "#FFCEA6;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:7}",
         "color": "#FFDABB;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:8}",
         "color": "#FFE4CE;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:9}",
         "color": "#FFEDDE;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:10}",
         "color": "#FFF6ED;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:11}",
         "color": "#FFFEFA;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:12}",
         "color": "#F3F2FF;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:13}",
         "color": "#E6EBFF;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:14}",
         "color": "#DDE6FF;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:15}",
         "color": "#D7E2FF;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:16}",
         "color": "#D2DFFF;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:17}",
         "color": "#CDDCFF;6"
       },
       {
-        "state": "powered=true,color=15,brightness=2",
+        "state": "powered=true,color=15,brightness=6",
         "nbt": "{LampTemperature:18}",
         "color": "#CADAFF;6"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:0}",
         "color": "#FF4400;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:1}",
         "color": "#FF6C00;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:2}",
         "color": "#FF890E;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:3}",
         "color": "#FF9F46;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:4}",
         "color": "#FFB16E;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:5}",
         "color": "#FFC18D;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:6}",
         "color": "#FFCEA6;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:7}",
         "color": "#FFDABB;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:8}",
         "color": "#FFE4CE;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:9}",
         "color": "#FFEDDE;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:10}",
         "color": "#FFF6ED;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:11}",
         "color": "#FFFEFA;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:12}",
         "color": "#F3F2FF;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:13}",
         "color": "#E6EBFF;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:14}",
         "color": "#DDE6FF;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:15}",
         "color": "#D7E2FF;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:16}",
         "color": "#D2DFFF;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:17}",
         "color": "#CDDCFF;8"
       },
       {
-        "state": "powered=true,color=15,brightness=3",
+        "state": "powered=true,color=15,brightness=8",
         "nbt": "{LampTemperature:18}",
         "color": "#CADAFF;8"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:0}",
         "color": "#FF4400;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:1}",
         "color": "#FF6C00;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:2}",
         "color": "#FF890E;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:3}",
         "color": "#FF9F46;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:4}",
         "color": "#FFB16E;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:5}",
         "color": "#FFC18D;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:6}",
         "color": "#FFCEA6;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:7}",
         "color": "#FFDABB;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:8}",
         "color": "#FFE4CE;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:9}",
         "color": "#FFEDDE;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:10}",
         "color": "#FFF6ED;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:11}",
         "color": "#FFFEFA;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:12}",
         "color": "#F3F2FF;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:13}",
         "color": "#E6EBFF;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:14}",
         "color": "#DDE6FF;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:15}",
         "color": "#D7E2FF;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:16}",
         "color": "#D2DFFF;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:17}",
         "color": "#CDDCFF;F"
       },
       {
-        "state": "powered=true,color=15,brightness=4",
+        "state": "powered=true,color=15,brightness=15",
         "nbt": "{LampTemperature:18}",
         "color": "#CADAFF;F"
       },
       {
-        "state": "powered=true,color=0,brightness=0",
+        "state": "powered=true,color=0,brightness=2",
         "color": "#FF3030;2"
       },
       {
-        "state": "powered=true,color=0,brightness=1",
+        "state": "powered=true,color=0,brightness=4",
         "color": "#FF3030;4"
       },
       {
-        "state": "powered=true,color=0,brightness=2",
+        "state": "powered=true,color=0,brightness=6",
         "color": "#FF3030;6"
       },
       {
-        "state": "powered=true,color=0,brightness=3",
+        "state": "powered=true,color=0,brightness=8",
         "color": "#FF3030;8"
       },
       {
-        "state": "powered=true,color=0,brightness=4",
+        "state": "powered=true,color=0,brightness=15",
         "color": "#FF3030;F"
       },
       {
-        "state": "powered=true,color=1,brightness=0",
+        "state": "powered=true,color=1,brightness=2",
         "color": "#FF8C24;2"
       },
       {
-        "state": "powered=true,color=1,brightness=1",
+        "state": "powered=true,color=1,brightness=4",
         "color": "#FF8C24;4"
       },
       {
-        "state": "powered=true,color=1,brightness=2",
+        "state": "powered=true,color=1,brightness=6",
         "color": "#FF8C24;6"
       },
       {
-        "state": "powered=true,color=1,brightness=3",
+        "state": "powered=true,color=1,brightness=8",
         "color": "#FF8C24;8"
       },
       {
-        "state": "powered=true,color=1,brightness=4",
+        "state": "powered=true,color=1,brightness=15",
         "color": "#FF8C24;F"
       },
       {
-        "state": "powered=true,color=2,brightness=0",
+        "state": "powered=true,color=2,brightness=2",
         "color": "#FFFF36;2"
       },
       {
-        "state": "powered=true,color=2,brightness=1",
+        "state": "powered=true,color=2,brightness=4",
         "color": "#FFFF36;4"
       },
       {
-        "state": "powered=true,color=2,brightness=2",
+        "state": "powered=true,color=2,brightness=6",
         "color": "#FFFF36;6"
       },
       {
-        "state": "powered=true,color=2,brightness=3",
+        "state": "powered=true,color=2,brightness=8",
         "color": "#FFFF36;8"
       },
       {
-        "state": "powered=true,color=2,brightness=4",
+        "state": "powered=true,color=2,brightness=15",
         "color": "#FFFF36;F"
       },
       {
-        "state": "powered=true,color=3,brightness=0",
+        "state": "powered=true,color=3,brightness=2",
         "color": "#53F04D;2"
       },
       {
-        "state": "powered=true,color=3,brightness=1",
+        "state": "powered=true,color=3,brightness=4",
         "color": "#53F04D;4"
       },
       {
-        "state": "powered=true,color=3,brightness=2",
+        "state": "powered=true,color=3,brightness=6",
         "color": "#53F04D;6"
       },
       {
-        "state": "powered=true,color=3,brightness=3",
+        "state": "powered=true,color=3,brightness=8",
         "color": "#53F04D;8"
       },
       {
-        "state": "powered=true,color=3,brightness=4",
+        "state": "powered=true,color=3,brightness=15",
         "color": "#53F04D;F"
       },
       {
-        "state": "powered=true,color=4,brightness=0",
+        "state": "powered=true,color=4,brightness=2",
         "color": "#36E8D1;2"
       },
       {
-        "state": "powered=true,color=4,brightness=1",
+        "state": "powered=true,color=4,brightness=4",
         "color": "#36E8D1;4"
       },
       {
-        "state": "powered=true,color=4,brightness=2",
+        "state": "powered=true,color=4,brightness=6",
         "color": "#36E8D1;6"
       },
       {
-        "state": "powered=true,color=4,brightness=3",
+        "state": "powered=true,color=4,brightness=8",
         "color": "#36E8D1;8"
       },
       {
-        "state": "powered=true,color=4,brightness=4",
+        "state": "powered=true,color=4,brightness=15",
         "color": "#36E8D1;F"
       },
       {
-        "state": "powered=true,color=5,brightness=0",
+        "state": "powered=true,color=5,brightness=2",
         "color": "#87CEEB;2"
       },
       {
-        "state": "powered=true,color=5,brightness=1",
+        "state": "powered=true,color=5,brightness=4",
         "color": "#87CEEB;4"
       },
       {
-        "state": "powered=true,color=5,brightness=2",
+        "state": "powered=true,color=5,brightness=6",
         "color": "#87CEEB;6"
       },
       {
-        "state": "powered=true,color=5,brightness=3",
+        "state": "powered=true,color=5,brightness=8",
         "color": "#87CEEB;8"
       },
       {
-        "state": "powered=true,color=5,brightness=4",
+        "state": "powered=true,color=5,brightness=15",
         "color": "#87CEEB;F"
       },
       {
-        "state": "powered=true,color=6,brightness=0",
+        "state": "powered=true,color=6,brightness=2",
         "color": "#0000FF;2"
       },
       {
-        "state": "powered=true,color=6,brightness=1",
+        "state": "powered=true,color=6,brightness=4",
         "color": "#0000FF;4"
       },
       {
-        "state": "powered=true,color=6,brightness=2",
+        "state": "powered=true,color=6,brightness=6",
         "color": "#0000FF;6"
       },
       {
-        "state": "powered=true,color=6,brightness=3",
+        "state": "powered=true,color=6,brightness=8",
         "color": "#0000FF;8"
       },
       {
-        "state": "powered=true,color=6,brightness=4",
+        "state": "powered=true,color=6,brightness=15",
         "color": "#0000FF;F"
       },
       {
-        "state": "powered=true,color=7,brightness=0",
+        "state": "powered=true,color=7,brightness=2",
         "color": "#8847F4;2"
       },
       {
-        "state": "powered=true,color=7,brightness=1",
+        "state": "powered=true,color=7,brightness=4",
         "color": "#8847F4;4"
       },
       {
-        "state": "powered=true,color=7,brightness=2",
+        "state": "powered=true,color=7,brightness=6",
         "color": "#8847F4;6"
       },
       {
-        "state": "powered=true,color=7,brightness=3",
+        "state": "powered=true,color=7,brightness=8",
         "color": "#8847F4;8"
       },
       {
-        "state": "powered=true,color=7,brightness=4",
+        "state": "powered=true,color=7,brightness=15",
         "color": "#8847F4;F"
       },
       {
-        "state": "powered=true,color=8,brightness=0",
+        "state": "powered=true,color=8,brightness=2",
         "color": "#C154C1;2"
       },
       {
-        "state": "powered=true,color=8,brightness=1",
+        "state": "powered=true,color=8,brightness=4",
         "color": "#C154C1;4"
       },
       {
-        "state": "powered=true,color=8,brightness=2",
+        "state": "powered=true,color=8,brightness=6",
         "color": "#C154C1;6"
       },
       {
-        "state": "powered=true,color=8,brightness=3",
+        "state": "powered=true,color=8,brightness=8",
         "color": "#C154C1;8"
       },
       {
-        "state": "powered=true,color=8,brightness=4",
+        "state": "powered=true,color=8,brightness=15",
         "color": "#C154C1;F"
       },
       {
-        "state": "powered=true,color=9,brightness=0",
+        "state": "powered=true,color=9,brightness=2",
         "color": "#FFCBDB;2"
       },
       {
-        "state": "powered=true,color=9,brightness=1",
+        "state": "powered=true,color=9,brightness=4",
         "color": "#FFCBDB;4"
       },
       {
-        "state": "powered=true,color=9,brightness=2",
+        "state": "powered=true,color=9,brightness=6",
         "color": "#FFCBDB;6"
       },
       {
-        "state": "powered=true,color=9,brightness=3",
+        "state": "powered=true,color=9,brightness=8",
         "color": "#FFCBDB;8"
       },
       {
-        "state": "powered=true,color=9,brightness=4",
+        "state": "powered=true,color=9,brightness=15",
         "color": "#FFCBDB;F"
       },
       {
-        "state": "powered=true,color=10,brightness=0",
+        "state": "powered=true,color=10,brightness=2",
         "color": "#E8D8FF;2"
       },
       {
-        "state": "powered=true,color=10,brightness=1",
+        "state": "powered=true,color=10,brightness=4",
         "color": "#E8D8FF;4"
       },
       {
-        "state": "powered=true,color=10,brightness=2",
+        "state": "powered=true,color=10,brightness=6",
         "color": "#E8D8FF;6"
       },
       {
-        "state": "powered=true,color=10,brightness=3",
+        "state": "powered=true,color=10,brightness=8",
         "color": "#E8D8FF;8"
       },
       {
-        "state": "powered=true,color=10,brightness=4",
+        "state": "powered=true,color=10,brightness=15",
         "color": "#E8D8FF;F"
       },
       {
-        "state": "powered=true,color=11,brightness=0",
+        "state": "powered=true,color=11,brightness=2",
         "color": "#FFE0A3;2"
       },
       {
-        "state": "powered=true,color=11,brightness=1",
+        "state": "powered=true,color=11,brightness=4",
         "color": "#FFE0A3;4"
       },
       {
-        "state": "powered=true,color=11,brightness=2",
+        "state": "powered=true,color=11,brightness=6",
         "color": "#FFE0A3;6"
       },
       {
-        "state": "powered=true,color=11,brightness=3",
+        "state": "powered=true,color=11,brightness=8",
         "color": "#FFE0A3;8"
       },
       {
-        "state": "powered=true,color=11,brightness=4",
+        "state": "powered=true,color=11,brightness=15",
         "color": "#FFE0A3;F"
       },
       {
-        "state": "powered=true,color=12,brightness=0",
+        "state": "powered=true,color=12,brightness=2",
         "color": "#FFF1DF;2"
       },
       {
-        "state": "powered=true,color=12,brightness=1",
+        "state": "powered=true,color=12,brightness=4",
         "color": "#FFF1DF;4"
       },
       {
-        "state": "powered=true,color=12,brightness=2",
+        "state": "powered=true,color=12,brightness=6",
         "color": "#FFF1DF;6"
       },
       {
-        "state": "powered=true,color=12,brightness=3",
+        "state": "powered=true,color=12,brightness=8",
         "color": "#FFF1DF;8"
       },
       {
-        "state": "powered=true,color=12,brightness=4",
+        "state": "powered=true,color=12,brightness=15",
         "color": "#FFF1DF;F"
       },
       {
-        "state": "powered=true,color=13,brightness=0",
+        "state": "powered=true,color=13,brightness=2",
         "color": "#FFFFFF;2"
       },
       {
-        "state": "powered=true,color=13,brightness=1",
+        "state": "powered=true,color=13,brightness=4",
         "color": "#FFFFFF;4"
       },
       {
-        "state": "powered=true,color=13,brightness=2",
+        "state": "powered=true,color=13,brightness=6",
         "color": "#FFFFFF;6"
       },
       {
-        "state": "powered=true,color=13,brightness=3",
+        "state": "powered=true,color=13,brightness=8",
         "color": "#FFFFFF;8"
       },
       {
-        "state": "powered=true,color=13,brightness=4",
+        "state": "powered=true,color=13,brightness=15",
         "color": "#FFFFFF;F"
       },
       {
-        "state": "powered=true,color=14,brightness=0",
+        "state": "powered=true,color=14,brightness=2",
         "color": "#C8E8FF;2"
       },
       {
-        "state": "powered=true,color=14,brightness=1",
+        "state": "powered=true,color=14,brightness=4",
         "color": "#C8E8FF;4"
       },
       {
-        "state": "powered=true,color=14,brightness=2",
+        "state": "powered=true,color=14,brightness=6",
         "color": "#C8E8FF;6"
       },
       {
-        "state": "powered=true,color=14,brightness=3",
+        "state": "powered=true,color=14,brightness=8",
         "color": "#C8E8FF;8"
       },
       {
-        "state": "powered=true,color=14,brightness=4",
+        "state": "powered=true,color=14,brightness=15",
         "color": "#C8E8FF;F"
       },
       {

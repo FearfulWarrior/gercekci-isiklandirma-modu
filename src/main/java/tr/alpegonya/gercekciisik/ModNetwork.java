@@ -79,7 +79,7 @@ public final class ModNetwork {
                 int safeBrightnessMode = Math.max(0, Math.min(4, packet.brightnessMode));
                 int safeTemperature = Math.max(0, Math.min(18, packet.temperature));
                 BlockState configured = state.setValue(LampBlock.COLOR, safeColor)
-                        .setValue(LampBlock.BRIGHTNESS, safeBrightnessMode)
+                        .setValue(LampBlock.BRIGHTNESS, LampBlock.lightLevelForMode(safeBrightnessMode))
                         .setValue(LampBlock.POWERED, packet.powered);
                 boolean stateChanged = !configured.equals(state);
                 if (stateChanged) level.setBlock(packet.pos, configured, 3);
