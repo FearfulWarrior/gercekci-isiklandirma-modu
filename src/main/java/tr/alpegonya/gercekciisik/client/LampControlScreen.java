@@ -5,10 +5,14 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import tr.alpegonya.gercekciisik.LampBlock;
 import tr.alpegonya.gercekciisik.ModNetwork;
 
 public final class LampControlScreen extends Screen {
+    private static final ResourceLocation KELVIN_GRADIENT =
+            new ResourceLocation("gercekciisik", "textures/gui/kelvin_gradient.png");
+
     private static final String[] MODERN_COLORS = {
             "Kırmızı", "Turuncu", "Sarı", "Yeşil",
             "Turkuaz", "Açık mavi", "Mavi", "Mor",
@@ -17,11 +21,6 @@ public final class LampControlScreen extends Screen {
     };
     private static final String[] CLASSIC_COLORS = {
             "Soğuk mavi-beyaz", "Beyaz", "Mor-beyaz"
-    };
-    private static final int[] KELVIN_SWATCHES = {
-            0xFF3000, 0xFF5B12, 0xFF8D32, 0xFFB86B,
-            0xFFE0B8, 0xFFF4E7, 0xFFFFFF, 0xE8F3FF,
-            0xC4E1FF, 0x93C9FF, 0x4C91FF
     };
 
     private final BlockPos pos;
@@ -102,7 +101,6 @@ public final class LampControlScreen extends Screen {
 
     private void changeTemperature(int steps) {
         temperature = Math.max(0, Math.min(18, temperature + steps));
-        // Kelvin adjustment switches to the white-light mode and uses the black-body tint.
         color = 12;
         send();
     }
@@ -123,7 +121,6 @@ public final class LampControlScreen extends Screen {
         graphics.drawCenteredString(font, title, width / 2, 10, 0xFFFFFF);
         if (modern) {
             graphics.drawCenteredString(font, Component.literal("Renk seçimi"), width / 2, 26, 0xD5DDE8);
-
             graphics.drawCenteredString(font,
                     Component.literal("Renk sıcaklığı: " + (1000 + temperature * 500) + " K"),
                     width / 2, 91, 0xFFFFFF);
@@ -131,10 +128,8 @@ public final class LampControlScreen extends Screen {
             int barWidth = Math.min(300, width - 80);
             int barX = (width - barWidth) / 2;
             int barY = 105;
-            for (int x = 0; x < barWidth; x++) {
-                int color = gradientColor(barWidth <= 1 ? 0 : (float) x / (barWidth - 1));
-                graphics.fill(barX + x, barY, barX + x + 1, barY + 9, 0xFF000000 | color);
-            }
+            // One cached texture draw instead of hundreds of per-pixel fills on every frame.
+            graphics.blit(KELVIN_GRADIENT, barX, barY, 0.0F, 0.0F, barWidth, 9, 256, 1);
             graphics.fill(barX - 1, barY - 1, barX + barWidth + 1, barY, 0xFFFFFFFF);
             graphics.fill(barX - 1, barY + 9, barX + barWidth + 1, barY + 10, 0xFF4A4A4A);
             graphics.drawString(font, Component.literal("1000 K"), barX, 116, 0xD7D7D7);
@@ -153,18 +148,6 @@ public final class LampControlScreen extends Screen {
         }
         graphics.drawCenteredString(font, Component.literal("Işık Kontrol Kumandası"),
                 width / 2, height - 42, 0x9EB8D2);
-    }
-
-    private static int gradientColor(float t) {
-        float scaled = t * (KELVIN_SWATCHES.length - 1);
-        int index = Math.min(KELVIN_SWATCHES.length - 2, (int) scaled);
-        float frac = scaled - index;
-        int a = KELVIN_SWATCHES[index];
-        int b = KELVIN_SWATCHES[index + 1];
-        int r = Math.round(((a >> 16) & 255) * (1 - frac) + ((b >> 16) & 255) * frac);
-        int g = Math.round(((a >> 8) & 255) * (1 - frac) + ((b >> 8) & 255) * frac);
-        int bl = Math.round((a & 255) * (1 - frac) + (b & 255) * frac);
-        return (r << 16) | (g << 8) | bl;
     }
 
     @Override

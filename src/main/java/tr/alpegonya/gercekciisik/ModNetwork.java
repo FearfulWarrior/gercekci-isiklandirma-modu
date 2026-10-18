@@ -83,7 +83,11 @@ public final class ModNetwork {
                 BlockState configured = state.setValue(LampBlock.COLOR, safeColor)
                         .setValue(LampBlock.BRIGHTNESS, safeBrightness)
                         .setValue(LampBlock.TEMPERATURE, safeTemperature);
-                level.setBlock(packet.pos, configured, 3);
+
+                // Selecting an already-active value should not rebuild a chunk or relight the block.
+                if (!configured.equals(state)) {
+                    level.setBlock(packet.pos, configured, 3);
+                }
             });
             context.setPacketHandled(true);
         }
