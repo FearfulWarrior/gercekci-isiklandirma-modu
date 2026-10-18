@@ -59,9 +59,9 @@ public final class LampControlScreen extends Screen {
         if (modern) {
             int columns = 5;
             int buttonWidth = 30;
-            int buttonHeight = 21;
+            int buttonHeight = 18;
             int gapX = 4;
-            int gapY = 3;
+            int gapY = 2;
             int totalWidth = columns * buttonWidth + (columns - 1) * gapX;
             int startX = center - totalWidth / 2;
             int startY = 29 + offset;
@@ -75,15 +75,15 @@ public final class LampControlScreen extends Screen {
             }
 
             addRenderableWidget(Button.builder(Component.literal("− 500 K"), b -> changeTemperature(-1))
-                     .bounds(center - 111, 132 + offset, 82, 18).build());
+                      .bounds(center - 111, 127 + offset, 82, 18).build());
             addRenderableWidget(Button.builder(Component.literal("+ 500 K"), b -> changeTemperature(1))
-                     .bounds(center + 29, 132 + offset, 82, 18).build());
+                      .bounds(center + 29, 127 + offset, 82, 18).build());
             addRenderableWidget(Button.builder(Component.literal("−"), b -> changeBrightness(-1))
-                     .bounds(center - 65, 164 + offset, 40, 18).build());
+                      .bounds(center - 65, 162 + offset, 40, 18).build());
             addRenderableWidget(Button.builder(Component.literal("+"), b -> changeBrightness(1))
-                     .bounds(center + 25, 164 + offset, 40, 18).build());
+                      .bounds(center + 25, 162 + offset, 40, 18).build());
             powerButton = Button.builder(powerLabel(), b -> togglePower())
-                     .bounds(center - 65, 192 + offset, 130, 20).build();
+                      .bounds(center - 65, 190 + offset, 130, 20).build();
             addRenderableWidget(powerButton);
         } else {
             int buttonWidth = 46;
@@ -163,7 +163,7 @@ public final class LampControlScreen extends Screen {
     }
 
     private int kelvinBarY() {
-        return 108 + verticalOffset();
+        return 104 + verticalOffset();
     }
 
     @Override
@@ -192,7 +192,7 @@ public final class LampControlScreen extends Screen {
             graphics.drawCenteredString(font, Component.literal("Renk seçimi"), center, 20 + offset, 0xD5DDE8);
             graphics.drawCenteredString(font,
                     Component.literal("Renk sıcaklığı: " + (1000 + temperature * 500) + " K"),
-                    center, 97 + offset, 0xFFFFFF);
+                    center, 91 + offset, 0xFFFFFF);
             int barWidth = kelvinBarWidth();
             int barX = kelvinBarX();
             int barY = kelvinBarY();
@@ -206,9 +206,9 @@ public final class LampControlScreen extends Screen {
             graphics.drawString(font, Component.literal("10000 K"),
                     barX + barWidth - font.width("10000 K"), barY + 11, 0xFFD7D7D7);
             graphics.drawCenteredString(font, Component.literal("Parlaklık: " + brightness + " / 15"),
-                    center, 152 + offset, 0xFFFFFF);
+                    center, 149 + offset, 0xFFFFFF);
             graphics.drawCenteredString(font, Component.literal(powered ? "Lamba açık" : "Lamba kapalı"),
-                    center, 183 + offset, powered ? 0xBFFFC7 : 0xFFB8B8);
+                    center, 181 + offset, powered ? 0xBFFFC7 : 0xFFB8B8);
         } else {
             graphics.drawCenteredString(font, Component.literal("Üç sabit renk seçeneği"),
                     center, 34 + offset, 0xC8D5E5);
