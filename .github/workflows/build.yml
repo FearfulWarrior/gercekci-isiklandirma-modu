@@ -32,6 +32,68 @@ jobs:
           gradle-version: '8.1.1'
       - name: Build Forge mod
         run: gradle --no-daemon build
+      - name: Verify packaged JAR resources
+        run: |
+          python - <<'PY'
+          import glob, json, os, struct, zipfile, zlib
+          jars = [p for p in glob.glob("build/libs/*.jar") if not p.endswith("-sources.jar")]
+          assert len(jars) == 1, f"Expected one distributable JAR, found: {jars}"
+          jar = jars[0]
+          required = [
+              "META-INF/mods.toml",
+              "assets/gercekciisik/light/emitters.json",
+              "assets/gercekciisik/models/block/traditional_panel.json",
+              "assets/gercekciisik/models/block/modern_panel.json",
+              "assets/gercekciisik/blockstates/traditional_fluorescent.json",
+              "assets/gercekciisik/blockstates/modern_fluorescent.json",
+              "assets/gercekciisik/textures/item/traditional_fluorescent.png",
+              "assets/gercekciisik/textures/item/modern_fluorescent.png",
+              "assets/gercekciisik/textures/item/remote.png",
+              "tr/alpegonya/gercekciisik/LampBlock.class",
+              "tr/alpegonya/gercekciisik/LampBlockEntity.class",
+              "tr/alpegonya/gercekciisik/client/LampControlScreen.class",
+              "tr/alpegonya/gercekciisik/client/BrightnessModeButton.class",
+          ]
+          with zipfile.ZipFile(jar) as z:
+              names = set(z.namelist())
+              missing = [p for p in required if p not in names]
+              assert not missing, f"JAR is missing required files: {missing}"
+              meta = z.read("META-INF/mods.toml").decode("utf-8")
+              assert 'version="0.1.0"' in meta, "JAR mod version is not 0.1.0"
+              for name in names:
+                  if name.endswith(".json"):
+                      json.loads(z.read(name).decode("utf-8"))
+              emitter = json.loads(z.read("assets/gercekciisik/light/emitters.json").decode("utf-8"))
+              assert len(emitter["gercekciisik:traditional_fluorescent"]["variants"]) == 16
+              assert len(emitter["gercekciisik:modern_fluorescent"]["variants"]) == 171
+              pngs = [n for n in names if n.endswith(".png") and n.startswith("assets/gercekciisik/")]
+              for name in pngs:
+                  data = z.read(name)
+                  assert data.startswith(b"\x89PNG\r\n\x1a\n"), f"Invalid PNG signature: {name}"
+                  pos, idat, seen_iend = 8, bytearray(), False
+                  while pos < len(data):
+                      length = struct.unpack(">I", data[pos:pos+4])[0]
+                      typ = data[pos+4:pos+8]
+                      part = data[pos+8:pos+8+length]
+                      stored_crc = struct.unpack(">I", data[pos+8+length:pos+12+length])[0]
+                      calc_crc = zlib.crc32(typ + part) & 0xffffffff
+                      assert stored_crc == calc_crc, f"Bad PNG CRC: {name}"
+                      if typ == b"IDAT":
+                          idat.extend(part)
+                      if typ == b"IEND":
+                          seen_iend = True
+                          break
+                      pos += 12 + length
+                  assert seen_iend and idat, f"PNG is incomplete: {name}"
+                  zlib.decompress(bytes(idat))
+          print(f"Verified {jar}: required classes/models, JSON, and PNG resources are valid.")
+          PY
+      - name: Prepare JAR with requested filenames
+        run: |
+          JAR=$(find build/libs -maxdepth 1 -name '*.jar' ! -name '*-sources.jar' | head -n 1)
+          test -n "$JAR"
+          cp "$JAR" "Gerçekçi Işıklandırma Modu 0.1.0.jar"
+          cp "$JAR" "Gercekci-Isiklandirma-Modu-0.1.0.jar"
       - name: Prepare JAR with requested filename
         run: |
           JAR=$(find build/libs -maxdepth 1 -name '*.jar' ! -name '*-sources.jar' | head -n 1)
@@ -41,7 +103,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: gercekci-isiklandirma-0.1.0
-          path: "Gerçekçi Işıklandırma Modu 0.1.0.jar"
+          path: |
+            Gerçekçi Işıklandırma Modu 0.1.0.jar
+            Gercekci-Isiklandirma-Modu-0.1.0.jar
           if-no-files-found: error
           retention-days: 14
       - name: Publish direct JAR download
@@ -54,7 +118,7 @@ jobs:
             Minecraft Java 1.20.1 + Forge 47.2.0 test build.
             Compiled by GitHub Actions using Java 17.
             This build has not been tested in-game by the workflow.
-          files: "Gerçekçi Işıklandırma Modu 0.1.0.jar"
+          files: "Gercekci-Isiklandirma-Modu-0.1.0.jar"
           make_latest: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
