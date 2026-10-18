@@ -49,7 +49,7 @@ public final class LampBlock extends DirectionalBlock implements EntityBlock {
         registerDefaultState(stateDefinition.any()
                 .setValue(FACING, Direction.DOWN)
                 .setValue(COLOR, modern ? 13 : 0)
-                .setValue(BRIGHTNESS, modern ? 6 : 8)
+                .setValue(BRIGHTNESS, modern ? 10 : 13)
                 .setValue(POWERED, true));
     }
 
@@ -140,7 +140,7 @@ public final class LampBlock extends DirectionalBlock implements EntityBlock {
     public static int rgb(int color, boolean modern, int temperatureIndex) {
         if (!modern) {
             return switch (Mth.clamp(color, 0, 2)) {
-                case 0 -> 0xD6E8FF;
+                case 0 -> 0x9FC9FF;
                 case 1 -> 0xFFFFFF;
                 default -> 0xE8D8FF;
             };

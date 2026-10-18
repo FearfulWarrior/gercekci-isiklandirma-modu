@@ -10,8 +10,8 @@ public final class ClientScreenOpener {
     private ClientScreenOpener() {}
 
     public static void open(BlockPos pos, int color, int brightness, int temperature,
-                            boolean powered, boolean modern) {
-        Minecraft.getInstance().setScreen(
-                new LampControlScreen(pos, color, brightness, temperature, powered, modern));
+                            boolean powered, int paletteMode, String title) {
+        Minecraft.getInstance().setScreen(new LampControlScreen(
+                pos, color, brightness, temperature, powered, paletteMode, title));
     }
 }
