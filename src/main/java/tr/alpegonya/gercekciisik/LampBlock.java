@@ -7,7 +7,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.EntityBlock;
@@ -17,7 +16,7 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -25,11 +24,14 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public final class LampBlock extends DirectionalBlock implements EntityBlock {
-    // Only rapidly changing light state stays in BlockState. Color and Kelvin are saved in the BE.
-    public static final IntegerProperty BRIGHTNESS = IntegerProperty.create("brightness", 0, 15);
+    // Color is a BlockState property so selecting another hue rebuilds the model immediately.
+    public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 15);
+    // Five brightness modes: very low, low, medium, high, very high.
+    public static final IntegerProperty BRIGHTNESS = IntegerProperty.create("brightness", 0, 4);
     public static final BooleanProperty POWERED = BooleanProperty.create("powered");
     public static final int MODERN_COLOR_COUNT = 15;
     public static final int MODERN_KELVIN_COLOR = 15;
+    private static final int[] LIGHT_LEVELS = {2, 4, 6, 8, 15};
 
     private static final VoxelShape SLAB_BOTTOM = Shapes.box(0, 0, 0, 1, 2.0 / 16.0, 1);
     private static final VoxelShape SLAB_TOP = Shapes.box(0, 14.0 / 16.0, 0, 1, 1, 1);
@@ -42,12 +44,17 @@ public final class LampBlock extends DirectionalBlock implements EntityBlock {
 
     public LampBlock(boolean modern, BlockBehaviour.Properties properties) {
         super(properties.lightLevel(state ->
-                state.getValue(POWERED) ? state.getValue(BRIGHTNESS) : 0));
+                state.getValue(POWERED) ? lightLevelForMode(state.getValue(BRIGHTNESS)) : 0));
         this.modern = modern;
         registerDefaultState(stateDefinition.any()
                 .setValue(FACING, Direction.DOWN)
-                .setValue(BRIGHTNESS, 15)
+                .setValue(COLOR, modern ? 13 : 0)
+                .setValue(BRIGHTNESS, modern ? 2 : 3)
                 .setValue(POWERED, true));
+    }
+
+    public static int lightLevelForMode(int mode) {
+        return LIGHT_LEVELS[Mth.clamp(mode, 0, LIGHT_LEVELS.length - 1)];
     }
 
     public boolean isModern() {
@@ -75,9 +82,7 @@ public final class LampBlock extends DirectionalBlock implements EntityBlock {
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
                                   LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-        if (!canSurvive(state, level, pos)) {
-            return Blocks.AIR.defaultBlockState();
-        }
+        if (!canSurvive(state, level, pos)) return Blocks.AIR.defaultBlockState();
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
@@ -104,8 +109,8 @@ public final class LampBlock extends DirectionalBlock implements EntityBlock {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, BRIGHTNESS, POWERED);
+    protected void createBlockStateDefinition(StateDefinition.Builder<net.minecraft.world.level.block.Block, BlockState> builder) {
+        builder.add(FACING, COLOR, BRIGHTNESS, POWERED);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package tr.alpegonya.gercekciisik.client;
 
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,13 +15,15 @@ public final class ClientEvents {
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
         event.register((state, level, pos, tintIndex) -> {
-            if (tintIndex != 0 || !(state.getBlock() instanceof LampBlock lamp)) {
-                return 0xFFFFFF;
-            }
-            int color = lamp.isModern() ? 13 : 0;
+            if (tintIndex != 0 || !(state.getBlock() instanceof LampBlock lamp)) return 0xFFFFFF;
+            // Off lamps show a neutral, muted diffuser rather than the saved selected hue.
+            if (!state.getValue(LampBlock.POWERED)) return 0xC8C8C8;
+
+            int color = state.getValue(LampBlock.COLOR);
             int temperature = 9;
-            if (level != null && pos != null && level.getBlockEntity(pos) instanceof LampBlockEntity data) {
-                color = data.getColor();
+            if (color == LampBlock.MODERN_KELVIN_COLOR
+                    && level != null && pos != null
+                    && level.getBlockEntity(pos) instanceof LampBlockEntity data) {
                 temperature = data.getTemperature();
             }
             return LampBlock.rgb(color, lamp.isModern(), temperature);

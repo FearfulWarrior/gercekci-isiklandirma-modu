@@ -27,21 +27,21 @@ public final class ModNetwork {
                 ConfigureLampPacket::encode, ConfigureLampPacket::decode, ConfigureLampPacket::handle);
     }
 
-    public static void sendConfig(BlockPos pos, int color, int brightness, int temperature, boolean powered) {
-        CHANNEL.sendToServer(new ConfigureLampPacket(pos, color, brightness, temperature, powered));
+    public static void sendConfig(BlockPos pos, int color, int brightnessMode, int temperature, boolean powered) {
+        CHANNEL.sendToServer(new ConfigureLampPacket(pos, color, brightnessMode, temperature, powered));
     }
 
     public static final class ConfigureLampPacket {
         private final BlockPos pos;
         private final int color;
-        private final int brightness;
+        private final int brightnessMode;
         private final int temperature;
         private final boolean powered;
 
-        public ConfigureLampPacket(BlockPos pos, int color, int brightness, int temperature, boolean powered) {
+        public ConfigureLampPacket(BlockPos pos, int color, int brightnessMode, int temperature, boolean powered) {
             this.pos = pos;
             this.color = color;
-            this.brightness = brightness;
+            this.brightnessMode = brightnessMode;
             this.temperature = temperature;
             this.powered = powered;
         }
@@ -49,7 +49,7 @@ public final class ModNetwork {
         private static void encode(ConfigureLampPacket packet, FriendlyByteBuf buffer) {
             buffer.writeBlockPos(packet.pos);
             buffer.writeVarInt(packet.color);
-            buffer.writeVarInt(packet.brightness);
+            buffer.writeVarInt(packet.brightnessMode);
             buffer.writeVarInt(packet.temperature);
             buffer.writeBoolean(packet.powered);
         }
@@ -63,42 +63,32 @@ public final class ModNetwork {
             NetworkEvent.Context context = contextSupplier.get();
             context.enqueueWork(() -> {
                 ServerPlayer player = context.getSender();
-                if (player == null || !(player.level() instanceof ServerLevel level)) {
-                    return;
-                }
-                if (player.distanceToSqr(Vec3.atCenterOf(packet.pos)) > 64.0D) {
-                    return;
-                }
+                if (player == null || !(player.level() instanceof ServerLevel level)) return;
+                if (player.distanceToSqr(Vec3.atCenterOf(packet.pos)) > 64.0D) return;
+
                 ItemStack main = player.getMainHandItem();
                 ItemStack off = player.getOffhandItem();
                 if (main.getItem() != GercekciIsikMod.LIGHT_CONTROL_REMOTE.get()
-                        && off.getItem() != GercekciIsikMod.LIGHT_CONTROL_REMOTE.get()) {
-                    return;
-                }
+                        && off.getItem() != GercekciIsikMod.LIGHT_CONTROL_REMOTE.get()) return;
 
                 BlockState state = level.getBlockState(packet.pos);
-                if (!(state.getBlock() instanceof LampBlock lamp)) {
-                    return;
-                }
+                if (!(state.getBlock() instanceof LampBlock lamp)) return;
+
                 int maxColor = lamp.isModern() ? LampBlock.MODERN_KELVIN_COLOR : 2;
                 int safeColor = Math.max(0, Math.min(maxColor, packet.color));
-                int safeBrightness = Math.max(0, Math.min(15, packet.brightness));
+                int safeBrightnessMode = Math.max(0, Math.min(4, packet.brightnessMode));
                 int safeTemperature = Math.max(0, Math.min(18, packet.temperature));
-
-                BlockState configured = state.setValue(LampBlock.BRIGHTNESS, safeBrightness)
+                BlockState configured = state.setValue(LampBlock.COLOR, safeColor)
+                        .setValue(LampBlock.BRIGHTNESS, safeBrightnessMode)
                         .setValue(LampBlock.POWERED, packet.powered);
                 boolean stateChanged = !configured.equals(state);
-                if (stateChanged) {
-                    level.setBlock(packet.pos, configured, 3);
-                }
+                if (stateChanged) level.setBlock(packet.pos, configured, 3);
 
                 if (level.getBlockEntity(packet.pos) instanceof LampBlockEntity data) {
-                    boolean colorChanged = data.setColorAndTemperature(safeColor, safeTemperature);
-                    if (colorChanged) {
-                        data.setChanged();
-                    }
-                    if (stateChanged || colorChanged) {
+                    boolean temperatureChanged = data.setTemperature(safeTemperature);
+                    if (stateChanged || temperatureChanged) {
                         BlockState current = level.getBlockState(packet.pos);
+                        // Broadcast temperature NBT and force a client-side tint rebuild.
                         level.sendBlockUpdated(packet.pos, current, current, 3);
                     }
                 }

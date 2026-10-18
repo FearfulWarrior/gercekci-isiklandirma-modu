@@ -27,21 +27,30 @@ public final class LampControlScreen extends Screen {
             "Soğuk mavi-beyaz", "Beyaz", "Mor-beyaz"
     };
     private static final int[] CLASSIC_COLOR_RGB = {0xD6E8FF, 0xFFFFFF, 0xE8D8FF};
+    private static final String[] BRIGHTNESS_LABELS = {"Çok düşük", "Düşük", "Orta", "Yüksek", "Çok yüksek"};
+    private static final String[] BRIGHTNESS_CAPTIONS = {"Ç.düş.", "Düşük", "Orta", "Yüksek", "Ç.yük."};
+    private static final String[] BRIGHTNESS_TOOLTIPS = {
+            "Çok düşük — korku atmosferi; yaklaşık 1 blokluk aydınlatma",
+            "Düşük — yaklaşık 3 blokluk aydınlatma",
+            "Orta — normal aydınlatma; yaklaşık 4×4 alana uygun",
+            "Yüksek — güçlü parlama; yaklaşık 6 blokluk mesafe hedefi",
+            "Çok yüksek — maksimum ışık; yaklaşık 10 blokluk mesafe hedefi"
+    };
 
     private final BlockPos pos;
     private final boolean modern;
     private int color;
-    private int brightness;
+    private int brightnessMode;
     private int temperature;
     private boolean powered;
     private Button powerButton;
 
-    public LampControlScreen(BlockPos pos, int color, int brightness, int temperature,
+    public LampControlScreen(BlockPos pos, int color, int brightnessMode, int temperature,
                              boolean powered, boolean modern) {
         super(Component.literal(modern ? "Modern Floresan Kontrolü" : "Geleneksel Floresan Kontrolü"));
         this.pos = pos;
         this.color = color;
-        this.brightness = brightness;
+        this.brightnessMode = Math.max(0, Math.min(4, brightnessMode));
         this.temperature = temperature;
         this.powered = powered;
         this.modern = modern;
@@ -49,6 +58,19 @@ public final class LampControlScreen extends Screen {
 
     private int verticalOffset() {
         return Math.max(0, (height - 330) / 2);
+    }
+
+    private void addBrightnessModeButtons(int center, int y, int buttonWidth, int buttonHeight) {
+        int gap = 3;
+        int totalWidth = buttonWidth * BRIGHTNESS_LABELS.length + gap * (BRIGHTNESS_LABELS.length - 1);
+        int startX = center - totalWidth / 2;
+        for (int i = 0; i < BRIGHTNESS_LABELS.length; i++) {
+            final int selected = i;
+            addRenderableWidget(new BrightnessModeButton(
+                    startX + i * (buttonWidth + gap), y, buttonWidth, buttonHeight, i,
+                    BRIGHTNESS_CAPTIONS[i], () -> brightnessMode, this::selectBrightnessMode,
+                    BRIGHTNESS_TOOLTIPS[i]));
+        }
     }
 
     @Override
@@ -78,12 +100,9 @@ public final class LampControlScreen extends Screen {
                       .bounds(center - 111, 127 + offset, 82, 18).build());
             addRenderableWidget(Button.builder(Component.literal("+ 500 K"), b -> changeTemperature(1))
                       .bounds(center + 29, 127 + offset, 82, 18).build());
-            addRenderableWidget(Button.builder(Component.literal("−"), b -> changeBrightness(-1))
-                      .bounds(center - 65, 162 + offset, 40, 18).build());
-            addRenderableWidget(Button.builder(Component.literal("+"), b -> changeBrightness(1))
-                      .bounds(center + 25, 162 + offset, 40, 18).build());
+            addBrightnessModeButtons(center, 162 + offset, 47, 20);
             powerButton = Button.builder(powerLabel(), b -> togglePower())
-                      .bounds(center - 65, 190 + offset, 130, 20).build();
+                      .bounds(center - 65, 198 + offset, 130, 20).build();
             addRenderableWidget(powerButton);
         } else {
             int buttonWidth = 46;
@@ -99,10 +118,7 @@ public final class LampControlScreen extends Screen {
                         index, CLASSIC_COLOR_RGB[i], () -> color, this::selectColor,
                         Component.literal(CLASSIC_COLOR_NAMES[i])));
             }
-            addRenderableWidget(Button.builder(Component.literal("−"), b -> changeBrightness(-1))
-                    .bounds(center - 65, 122 + offset, 40, 18).build());
-            addRenderableWidget(Button.builder(Component.literal("+"), b -> changeBrightness(1))
-                    .bounds(center + 25, 122 + offset, 40, 18).build());
+            addBrightnessModeButtons(center, 106 + offset, 47, 20);
             powerButton = Button.builder(powerLabel(), b -> togglePower())
                     .bounds(center - 65, 153 + offset, 130, 20).build();
             addRenderableWidget(powerButton);
@@ -137,8 +153,8 @@ public final class LampControlScreen extends Screen {
         send();
     }
 
-    private void changeBrightness(int amount) {
-        brightness = Math.max(0, Math.min(15, brightness + amount));
+    private void selectBrightnessMode(int mode) {
+        brightnessMode = Math.max(0, Math.min(4, mode));
         send();
     }
 
@@ -151,7 +167,7 @@ public final class LampControlScreen extends Screen {
     }
 
     private void send() {
-        ModNetwork.sendConfig(pos, color, brightness, temperature, powered);
+        ModNetwork.sendConfig(pos, color, brightnessMode, temperature, powered);
     }
 
     private int kelvinBarWidth() {
@@ -205,15 +221,17 @@ public final class LampControlScreen extends Screen {
             graphics.drawString(font, Component.literal("1000 K"), barX, barY + 11, 0xFFD7D7D7);
             graphics.drawString(font, Component.literal("10000 K"),
                     barX + barWidth - font.width("10000 K"), barY + 11, 0xFFD7D7D7);
-            graphics.drawCenteredString(font, Component.literal("Parlaklık: " + brightness + " / 15"),
-                    center, 149 + offset, 0xFFFFFF);
+            graphics.drawCenteredString(font,
+                    Component.literal("Parlaklık modu: " + BRIGHTNESS_LABELS[brightnessMode]),
+                    center, 150 + offset, 0xFFFFFF);
             graphics.drawCenteredString(font, Component.literal(powered ? "Lamba açık" : "Lamba kapalı"),
                     center, 181 + offset, powered ? 0xBFFFC7 : 0xFFB8B8);
         } else {
             graphics.drawCenteredString(font, Component.literal("Üç sabit renk seçeneği"),
                     center, 34 + offset, 0xC8D5E5);
-            graphics.drawCenteredString(font, Component.literal("Parlaklık: " + brightness + " / 15"),
-                    center, 101 + offset, 0xFFFFFF);
+            graphics.drawCenteredString(font,
+                    Component.literal("Parlaklık modu: " + BRIGHTNESS_LABELS[brightnessMode]),
+                    center, 91 + offset, 0xFFFFFF);
             graphics.drawCenteredString(font, Component.literal(powered ? "Lamba açık" : "Lamba kapalı"),
                     center, 143 + offset, powered ? 0xBFFFC7 : 0xFFB8B8);
         }
