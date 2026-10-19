@@ -140,6 +140,15 @@ public final class LampBlock extends DirectionalBlock implements EntityBlock {
 
     public static int rgb(int color, boolean modern, int temperatureIndex) {
         if (color == CUSTOM_RGB_COLOR) return 0xFFFFFF;
+        // Preserve 0.1.1's previously saved traditional fluorescent settings:
+        // index 0=cold blue-white, 1=white, 2=purple-white. New wheel choices use index 16.
+        if (!modern && color >= 0 && color <= 2) {
+            return switch (color) {
+                case 0 -> 0x9FC9FF;
+                case 1 -> 0xFFFFFF;
+                default -> 0xE8D8FF;
+            };
+        }
         return switch (Mth.clamp(color, 0, MODERN_KELVIN_COLOR)) {
             case 0 -> 0xFF3030;
             case 1 -> 0xFF8C24;

@@ -13,7 +13,8 @@ public final class LampBlockEntity extends BlockEntity {
     public LampBlockEntity(BlockPos pos, BlockState state) {
         super(GercekciIsikMod.LAMP_BLOCK_ENTITY.get(), pos, state);
         int c=state.getValue(LampBlock.COLOR);
-        rgb=LampBlock.rgb(c==LampBlock.CUSTOM_RGB_COLOR?13:c,true,temperature);
+        rgb=LampBlock.rgb(c==LampBlock.CUSTOM_RGB_COLOR?13:c,
+            state.getBlock() instanceof LampBlock fixture && fixture.isModern(),temperature);
     }
     public int getTemperature(){return temperature;}
     public int getRgb(){return rgb;}
@@ -33,7 +34,8 @@ public final class LampBlockEntity extends BlockEntity {
     @Override public void load(CompoundTag tag){
         super.load(tag);temperature=Mth.clamp(tag.getInt("LampTemperature"),0,18);
         if(tag.contains("LampRGB"))rgb=tag.getInt("LampRGB")&0xFFFFFF;
-        else {int c=getBlockState().getValue(LampBlock.COLOR);rgb=c==LampBlock.CUSTOM_RGB_COLOR?0xFFFFFF:LampBlock.rgb(c,true,temperature);}
+        else {int c=getBlockState().getValue(LampBlock.COLOR);rgb=c==LampBlock.CUSTOM_RGB_COLOR?0xFFFFFF:LampBlock.rgb(c,
+                getBlockState().getBlock() instanceof LampBlock fixture && fixture.isModern(),temperature);}
     }
     @Override public CompoundTag getUpdateTag(){return saveWithoutMetadata();}
     @Override public void handleUpdateTag(CompoundTag tag){load(tag);}

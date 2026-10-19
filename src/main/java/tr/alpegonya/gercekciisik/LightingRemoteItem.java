@@ -15,7 +15,7 @@ public final class LightingRemoteItem extends Item {
         if(state.getBlock() instanceof LampBlock lamp){
             color=state.getValue(LampBlock.COLOR);
             if(level.getBlockEntity(pos) instanceof LampBlockEntity d){temp=d.getTemperature();rgb=d.getRgb();}
-            else rgb=LampBlock.rgb(color==LampBlock.CUSTOM_RGB_COLOR?13:color,true,temp);
+            else rgb=LampBlock.rgb(color==LampBlock.CUSTOM_RGB_COLOR?13:color,lamp.isModern(),temp);
             brightness=LampBlock.modeForLightLevel(state.getValue(LampBlock.BRIGHTNESS));
             powered=state.getValue(LampBlock.POWERED);palette=1;
             title=lamp.isModern()?"Modern Floresan Kontrolü":"Geleneksel Floresan Kontrolü";
