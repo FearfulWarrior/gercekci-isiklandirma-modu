@@ -1,5 +1,4 @@
 package tr.alpegonya.gercekciisik;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
@@ -9,69 +8,31 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 
 public final class LightingRemoteItem extends Item {
-    public LightingRemoteItem(Properties properties) { super(properties); }
-
-    @Override
-    public InteractionResult useOn(UseOnContext context) {
-        var level = context.getLevel();
-        BlockPos pos = context.getClickedPos();
-        BlockState state = level.getBlockState(pos);
-
-        int color;
-        int temperature = 9;
-        int brightness;
-        boolean powered;
-        int paletteMode;
-        String title;
-
-        if (state.getBlock() instanceof LampBlock lamp) {
-            color = state.getValue(LampBlock.COLOR);
-            if (level.getBlockEntity(pos) instanceof LampBlockEntity data) temperature = data.getTemperature();
-            brightness = LampBlock.modeForLightLevel(state.getValue(LampBlock.BRIGHTNESS));
-            powered = state.getValue(LampBlock.POWERED);
-            paletteMode = lamp.isModern() ? 1 : 0;
-            title = lamp.isModern() ? "Modern Floresan Kontrolü" : "Geleneksel Floresan Kontrolü";
-        } else if (state.getBlock() instanceof ConfigurableLightBlock light) {
-            if (level.getBlockEntity(pos) instanceof AdjustableLightBlockEntity data) {
-                color = data.getColor();
-                temperature = data.getTemperature();
-            } else color = light.getDefaultColor();
-            brightness = state.getValue(ConfigurableLightBlock.BRIGHTNESS);
-            powered = state.getValue(ConfigurableLightBlock.POWERED);
-            paletteMode = light.getPaletteMode();
-            title = titleFor(light);
-        } else if (state.getBlock() instanceof LedStairBlock stairs) {
-            if (level.getBlockEntity(pos) instanceof AdjustableLightBlockEntity data) {
-                color = data.getColor();
-                temperature = data.getTemperature();
-            } else color = stairs.getDefaultColor();
-            brightness = state.getValue(LedStairBlock.BRIGHTNESS);
-            powered = state.getValue(LedStairBlock.POWERED);
-            paletteMode = 3;
-            title = "LED'li Merdiven Kontrolü";
-        } else return InteractionResult.PASS;
-
-        if (level.isClientSide) {
-            final int selectedColor = color;
-            final int selectedTemperature = temperature;
-            final int selectedBrightness = brightness;
-            final boolean selectedPowered = powered;
-            final int selectedPaletteMode = paletteMode;
-            final String selectedTitle = title;
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
-                    () -> () -> tr.alpegonya.gercekciisik.client.ClientScreenOpener.open(
-                            pos, selectedColor, selectedBrightness, selectedTemperature,
-                            selectedPowered, selectedPaletteMode, selectedTitle));
+    public LightingRemoteItem(Properties p){super(p);}
+    @Override public InteractionResult useOn(UseOnContext context){
+        var level=context.getLevel();BlockPos pos=context.getClickedPos();BlockState state=level.getBlockState(pos);
+        int color,rgb,temp=9,brightness,palette;boolean powered;String title;
+        if(state.getBlock() instanceof LampBlock lamp){
+            color=state.getValue(LampBlock.COLOR);
+            if(level.getBlockEntity(pos) instanceof LampBlockEntity d){temp=d.getTemperature();rgb=d.getRgb();}
+            else rgb=LampBlock.rgb(color==LampBlock.CUSTOM_RGB_COLOR?13:color,true,temp);
+            brightness=LampBlock.modeForLightLevel(state.getValue(LampBlock.BRIGHTNESS));
+            powered=state.getValue(LampBlock.POWERED);palette=1;
+            title=lamp.isModern()?"Modern Floresan Kontrolü":"Geleneksel Floresan Kontrolü";
+        }else if(state.getBlock() instanceof ConfigurableLightBlock light){
+            if(level.getBlockEntity(pos) instanceof AdjustableLightBlockEntity d){
+                color=d.getColor();temp=d.getTemperature();rgb=d.getRgb();
+            }else{color=light.getDefaultColor();rgb=light.colorFor(color,temp,LampBlock.rgb(color,true,temp));}
+            brightness=state.getValue(ConfigurableLightBlock.BRIGHTNESS);powered=state.getValue(ConfigurableLightBlock.POWERED);palette=light.getPaletteMode();
+            title=palette==2?"Geleneksel Simit Armatür Kontrolü":light.isVerticalStrip()?"Dikey Şerit LED Kontrolü":
+                light.isStrip()?"Yatay Şerit LED Kontrolü":light==GercekciIsikMod.SQUARE_SPOT.get()?"Kare Spot Kontrolü":
+                light==GercekciIsikMod.ROUND_SPOT.get()?"Daire Spot Kontrolü":light==GercekciIsikMod.MODERN_RING_LIGHT.get()?
+                "Modern Simit LED Kontrolü":"Işık Kontrolü";
+        }else return InteractionResult.PASS;
+        if(level.isClientSide){
+            final int c=color,r=rgb,t=temp,b=brightness,pm=palette;final boolean p=powered;final String titleCopy=title;
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT,()->()->tr.alpegonya.gercekciisik.client.ClientScreenOpener.open(pos,c,r,b,t,p,pm,titleCopy));
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
-    }
-
-    private static String titleFor(ConfigurableLightBlock light) {
-        if (light.isVerticalStrip()) return "Dikey Şerit LED Kontrolü";
-        if (light.isStrip()) return "Yatay Şerit LED Kontrolü";
-        return switch (light.getPaletteMode()) {
-            case 2 -> "Geleneksel Simit Armatür Kontrolü";
-            default -> "Akıllı Işık Kontrolü";
-        };
     }
 }

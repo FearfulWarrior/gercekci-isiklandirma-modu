@@ -33,20 +33,22 @@ public final class ModNetwork {
                 ConfigureLampPacket::encode, ConfigureLampPacket::decode, ConfigureLampPacket::handle);
     }
 
-    public static void sendConfig(BlockPos pos, int color, int brightnessMode, int temperature, boolean powered) {
-        CHANNEL.sendToServer(new ConfigureLampPacket(pos, color, brightnessMode, temperature, powered));
+    public static void sendConfig(BlockPos pos, int color, int rgb, int brightnessMode, int temperature, boolean powered) {
+        CHANNEL.sendToServer(new ConfigureLampPacket(pos, color, rgb, brightnessMode, temperature, powered));
     }
 
     public static final class ConfigureLampPacket {
         private final BlockPos pos;
         private final int color;
+        private final int rgb;
         private final int brightnessMode;
         private final int temperature;
         private final boolean powered;
 
-        public ConfigureLampPacket(BlockPos pos, int color, int brightnessMode, int temperature, boolean powered) {
+        public ConfigureLampPacket(BlockPos pos, int color, int rgb, int brightnessMode, int temperature, boolean powered) {
             this.pos = pos;
             this.color = color;
+            this.rgb = rgb & 0xFFFFFF;
             this.brightnessMode = brightnessMode;
             this.temperature = temperature;
             this.powered = powered;
@@ -55,14 +57,15 @@ public final class ModNetwork {
         private static void encode(ConfigureLampPacket packet, FriendlyByteBuf buffer) {
             buffer.writeBlockPos(packet.pos);
             buffer.writeVarInt(packet.color);
+            buffer.writeInt(packet.rgb);
             buffer.writeVarInt(packet.brightnessMode);
             buffer.writeVarInt(packet.temperature);
             buffer.writeBoolean(packet.powered);
         }
 
         private static ConfigureLampPacket decode(FriendlyByteBuf buffer) {
-            return new ConfigureLampPacket(buffer.readBlockPos(), buffer.readVarInt(), buffer.readVarInt(),
-                    buffer.readVarInt(), buffer.readBoolean());
+            return new ConfigureLampPacket(buffer.readBlockPos(), buffer.readVarInt(), buffer.readInt(),
+                    buffer.readVarInt(), buffer.readVarInt(), buffer.readBoolean());
         }
 
         private static void handle(ConfigureLampPacket packet, Supplier<NetworkEvent.Context> contextSupplier) {
@@ -83,67 +86,39 @@ public final class ModNetwork {
                     List<BlockPos> targets = light.isStrip()
                             ? collectStripNetwork(level, packet.pos, light) : List.of(packet.pos);
                     for (BlockPos target : targets) configureAdjustable(level, target, packet);
-                } else if (state.getBlock() instanceof LedStairBlock) {
-                    configureStair(level, packet.pos, packet);
-                }
+
             });
             context.setPacketHandled(true);
         }
     }
 
     private static void configureFluorescent(ServerLevel level, BlockPos pos, ConfigureLampPacket packet) {
-        BlockState state = level.getBlockState(pos);
-        if (!(state.getBlock() instanceof LampBlock lamp)) return;
-        int maxColor = lamp.isModern() ? LampBlock.MODERN_KELVIN_COLOR : 2;
-        int safeColor = Math.max(0, Math.min(maxColor, packet.color));
-        int safeMode = Math.max(0, Math.min(4, packet.brightnessMode));
-        int safeTemperature = Math.max(0, Math.min(18, packet.temperature));
-        BlockState configured = state.setValue(LampBlock.COLOR, safeColor)
-                .setValue(LampBlock.BRIGHTNESS, LampBlock.lightLevelForMode(safeMode))
-                .setValue(LampBlock.POWERED, packet.powered);
-        boolean stateChanged = !configured.equals(state);
-        if (stateChanged) level.setBlock(pos, configured, 3);
-        if (level.getBlockEntity(pos) instanceof LampBlockEntity data) {
-            boolean temperatureChanged = data.setTemperature(safeTemperature);
-            if (stateChanged || temperatureChanged) {
-                BlockState current = level.getBlockState(pos);
-                level.sendBlockUpdated(pos, current, current, 3);
-            }
+        BlockState state=level.getBlockState(pos);
+        if(!(state.getBlock() instanceof LampBlock))return;
+        int color=Math.max(0,Math.min(LampBlock.CUSTOM_RGB_COLOR,packet.color));
+        int mode=Math.max(0,Math.min(4,packet.brightnessMode));
+        int temp=Math.max(0,Math.min(18,packet.temperature));
+        BlockState configured=state.setValue(LampBlock.COLOR,color)
+            .setValue(LampBlock.BRIGHTNESS,LampBlock.lightLevelForMode(mode)).setValue(LampBlock.POWERED,packet.powered);
+        boolean changed=!configured.equals(state);
+        if(changed)level.setBlock(pos,configured,3);
+        if(level.getBlockEntity(pos) instanceof LampBlockEntity data){
+            boolean dataChanged=data.setConfiguration(temp,packet.rgb);
+            if(changed||dataChanged){BlockState current=level.getBlockState(pos);level.sendBlockUpdated(pos,current,current,3);}
         }
     }
 
     private static void configureAdjustable(ServerLevel level, BlockPos pos, ConfigureLampPacket packet) {
-        BlockState state = level.getBlockState(pos);
-        if (!(state.getBlock() instanceof ConfigurableLightBlock light)) return;
-        int maxColor = light.getPaletteMode() == 2 ? 2 : 15;
-        BlockState configured = state.setValue(ConfigurableLightBlock.BRIGHTNESS,
-                        Math.max(0, Math.min(4, packet.brightnessMode)))
-                .setValue(ConfigurableLightBlock.POWERED, packet.powered);
-        boolean stateChanged = !configured.equals(state);
-        if (stateChanged) level.setBlock(pos, configured, 3);
-        if (level.getBlockEntity(pos) instanceof AdjustableLightBlockEntity data) {
-            boolean entityChanged = data.setConfiguration(packet.color, packet.temperature, maxColor);
-            if (stateChanged || entityChanged) {
-                BlockState current = level.getBlockState(pos);
-                level.sendBlockUpdated(pos, current, current, 3);
-            }
-        }
-    }
-
-    private static void configureStair(ServerLevel level, BlockPos pos, ConfigureLampPacket packet) {
-        BlockState state = level.getBlockState(pos);
-        if (!(state.getBlock() instanceof LedStairBlock)) return;
-        BlockState configured = state.setValue(LedStairBlock.BRIGHTNESS,
-                        Math.max(0, Math.min(4, packet.brightnessMode)))
-                .setValue(LedStairBlock.POWERED, packet.powered);
-        boolean stateChanged = !configured.equals(state);
-        if (stateChanged) level.setBlock(pos, configured, 3);
-        if (level.getBlockEntity(pos) instanceof AdjustableLightBlockEntity data) {
-            boolean entityChanged = data.setConfiguration(packet.color, packet.temperature, 15);
-            if (stateChanged || entityChanged) {
-                BlockState current = level.getBlockState(pos);
-                level.sendBlockUpdated(pos, current, current, 3);
-            }
+        BlockState state=level.getBlockState(pos);
+        if(!(state.getBlock() instanceof ConfigurableLightBlock light))return;
+        int maxColor=light.getPaletteMode()==2?2:LampBlock.CUSTOM_RGB_COLOR;
+        BlockState configured=state.setValue(ConfigurableLightBlock.BRIGHTNESS,Math.max(0,Math.min(4,packet.brightnessMode)))
+            .setValue(ConfigurableLightBlock.POWERED,packet.powered);
+        boolean changed=!configured.equals(state);
+        if(changed)level.setBlock(pos,configured,3);
+        if(level.getBlockEntity(pos) instanceof AdjustableLightBlockEntity data){
+            boolean dataChanged=data.setConfiguration(packet.color,packet.temperature,packet.rgb,maxColor);
+            if(changed||dataChanged){BlockState current=level.getBlockState(pos);level.sendBlockUpdated(pos,current,current,3);}
         }
     }
 

@@ -1,5 +1,4 @@
 package tr.alpegonya.gercekciisik;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -24,130 +23,68 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public final class ConfigurableLightBlock extends DirectionalBlock implements EntityBlock {
-    public static final IntegerProperty BRIGHTNESS = IntegerProperty.create("brightness", 0, 4);
-    public static final BooleanProperty POWERED = BooleanProperty.create("powered");
-    private static final int[] LIGHT_LEVELS = {1, 4, 10, 13, 15};
-
-    private static final VoxelShape SLAB_BOTTOM = Shapes.box(0, 0, 0, 1, 2.0 / 16.0, 1);
-    private static final VoxelShape SLAB_TOP = Shapes.box(0, 14.0 / 16.0, 0, 1, 1, 1);
-    private static final VoxelShape SLAB_NORTH = Shapes.box(0, 0, 14.0 / 16.0, 1, 1, 1);
-    private static final VoxelShape SLAB_SOUTH = Shapes.box(0, 0, 0, 1, 1, 2.0 / 16.0);
-    private static final VoxelShape SLAB_WEST = Shapes.box(14.0 / 16.0, 0, 0, 1, 1, 1);
-    private static final VoxelShape SLAB_EAST = Shapes.box(0, 0, 0, 2.0 / 16.0, 1, 1);
-
-    private final int paletteMode;
-    private final int defaultColor;
-    // 0 = ordinary fixture, 1 = horizontal strip, 2 = vertical strip.
-    private final int stripKind;
-
-    public ConfigurableLightBlock(int paletteMode, int defaultColor, int defaultBrightness, int stripKind,
-                                  BlockBehaviour.Properties properties) {
-        super(properties.lightLevel(state ->
-                state.getValue(POWERED) ? lightLevelForMode(state.getValue(BRIGHTNESS)) : 0));
-        this.paletteMode = paletteMode;
-        this.defaultColor = defaultColor;
-        this.stripKind = stripKind;
-        registerDefaultState(stateDefinition.any()
-                .setValue(FACING, Direction.DOWN)
-                .setValue(BRIGHTNESS, Mth.clamp(defaultBrightness, 0, 4))
-                .setValue(POWERED, true));
+    public static final IntegerProperty BRIGHTNESS=IntegerProperty.create("brightness",0,4);
+    public static final BooleanProperty POWERED=BooleanProperty.create("powered");
+    private static final int[] LIGHT_LEVELS={1,4,10,13,15};
+    private final int paletteMode,defaultColor,stripKind;
+    public ConfigurableLightBlock(int paletteMode,int defaultColor,int defaultBrightness,int stripKind,BlockBehaviour.Properties properties){
+        super(properties.lightLevel(s->s.getValue(POWERED)?lightLevelForMode(s.getValue(BRIGHTNESS)):0));
+        this.paletteMode=paletteMode;this.defaultColor=defaultColor;this.stripKind=stripKind;
+        registerDefaultState(stateDefinition.any().setValue(FACING,Direction.DOWN)
+                .setValue(BRIGHTNESS,Mth.clamp(defaultBrightness,0,4)).setValue(POWERED,true));
     }
-
-    public static int lightLevelForMode(int mode) {
-        return LIGHT_LEVELS[Mth.clamp(mode, 0, LIGHT_LEVELS.length - 1)];
+    public static int lightLevelForMode(int mode){return LIGHT_LEVELS[Mth.clamp(mode,0,4)];}
+    public int getPaletteMode(){return paletteMode;}
+    public int getDefaultColor(){return defaultColor;}
+    public boolean isStrip(){return stripKind!=0;}
+    public boolean isVerticalStrip(){return stripKind==2;}
+    public int colorFor(int color,int temperature,int rgb){
+        if(paletteMode==2)return switch(Mth.clamp(color,0,2)){case 0->0xFFFFFF;case 1->0x9FC9FF;default->0xE7C982;};
+        if(color==LampBlock.CUSTOM_RGB_COLOR)return rgb&0xFFFFFF;
+        return LampBlock.rgb(color,true,temperature);
     }
-
-    public int getPaletteMode() { return paletteMode; }
-    public int getDefaultColor() { return defaultColor; }
-    public boolean isStrip() { return stripKind != 0; }
-    public boolean isVerticalStrip() { return stripKind == 2; }
-
-    public int colorFor(int color, int temperature) {
-        if (paletteMode == 2) {
-            return switch (Mth.clamp(color, 0, 2)) {
-                case 0 -> 0xFFFFFF;
-                case 1 -> 0x9FC9FF;
-                default -> 0xE7C982;
-            };
-        }
-        return LampBlock.rgb(color, true, temperature);
+    @Override public BlockEntity newBlockEntity(BlockPos pos,BlockState state){return new AdjustableLightBlockEntity(pos,state);}
+    @Override public BlockState getStateForPlacement(BlockPlaceContext context){
+        BlockState state=defaultBlockState().setValue(FACING,context.getClickedFace());
+        return state.canSurvive(context.getLevel(),context.getClickedPos())?state:null;
     }
-
-    @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new AdjustableLightBlockEntity(pos, state);
+    @Override public boolean canSurvive(BlockState state,LevelReader level,BlockPos pos){
+        Direction facing=state.getValue(FACING);BlockPos support=pos.relative(facing.getOpposite());
+        return level.getBlockState(support).isFaceSturdy(level,support,facing);
     }
-
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockState state = defaultBlockState().setValue(FACING, context.getClickedFace());
-        return state.canSurvive(context.getLevel(), context.getClickedPos()) ? state : null;
+    @Override public BlockState updateShape(BlockState state,Direction direction,BlockState neighbor,LevelAccessor level,BlockPos pos,BlockPos neighborPos){
+        if(!canSurvive(state,level,pos))return Blocks.AIR.defaultBlockState();
+        return super.updateShape(state,direction,neighbor,level,pos,neighborPos);
     }
-
-    @Override
-    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        Direction facing = state.getValue(FACING);
-        BlockPos supportPos = pos.relative(facing.getOpposite());
-        BlockState support = level.getBlockState(supportPos);
-
-        // The dedicated recessed ceiling tile is intentionally a three-fixture installation surface:
-        // square spot, round spot, and horizontal strip only, all mounted on its underside.
-        if (support.is(GercekciIsikMod.LED_CEILING_PANEL.get())) {
-            return facing == Direction.DOWN
-                    && (this == GercekciIsikMod.SQUARE_SPOT.get()
-                    || this == GercekciIsikMod.ROUND_SPOT.get()
-                    || this == GercekciIsikMod.HORIZONTAL_LED_STRIP.get());
-        }
-        return support.isFaceSturdy(level, supportPos, facing);
-    }
-
-    @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
-                                  LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-        if (!canSurvive(state, level, pos)) return Blocks.AIR.defaultBlockState();
-        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        if (stripKind == 1) {
-            return switch (state.getValue(FACING)) {
-                case DOWN -> Shapes.box(0, 14.0 / 16.0, 6.0 / 16.0, 1, 15.7 / 16.0, 10.0 / 16.0);
-                case UP -> Shapes.box(0, 0.3 / 16.0, 6.0 / 16.0, 1, 2.0 / 16.0, 10.0 / 16.0);
-                case NORTH -> Shapes.box(0, 6.0 / 16.0, 14.0 / 16.0, 1, 10.0 / 16.0, 1);
-                case SOUTH -> Shapes.box(0, 6.0 / 16.0, 0, 1, 10.0 / 16.0, 2.0 / 16.0);
-                case WEST -> Shapes.box(14.0 / 16.0, 6.0 / 16.0, 0, 1, 10.0 / 16.0, 1);
-                case EAST -> Shapes.box(0, 6.0 / 16.0, 0, 2.0 / 16.0, 10.0 / 16.0, 1);
-            };
-        }
-        if (stripKind == 2) {
-            // A vertical strip is a narrow full-height bar on walls or a slim pendant below/above surfaces.
-            return switch (state.getValue(FACING)) {
-                case DOWN, UP -> Shapes.box(7.0 / 16.0, 0, 7.0 / 16.0, 9.0 / 16.0, 1, 9.0 / 16.0);
-                case NORTH -> Shapes.box(6.0 / 16.0, 0, 14.0 / 16.0, 10.0 / 16.0, 1, 1);
-                case SOUTH -> Shapes.box(6.0 / 16.0, 0, 0, 10.0 / 16.0, 1, 2.0 / 16.0);
-                case WEST -> Shapes.box(14.0 / 16.0, 0, 6.0 / 16.0, 1, 1, 10.0 / 16.0);
-                case EAST -> Shapes.box(0, 0, 6.0 / 16.0, 2.0 / 16.0, 1, 10.0 / 16.0);
-            };
-        }
-        return switch (state.getValue(FACING)) {
-            case DOWN -> SLAB_TOP;
-            case UP -> SLAB_BOTTOM;
-            case NORTH -> SLAB_NORTH;
-            case SOUTH -> SLAB_SOUTH;
-            case WEST -> SLAB_WEST;
-            case EAST -> SLAB_EAST;
+    @Override public VoxelShape getShape(BlockState state,BlockGetter level,BlockPos pos,CollisionContext ctx){
+        Direction f=state.getValue(FACING);
+        if(stripKind==1)return switch(f){
+            case DOWN->Shapes.box(0,14.0/16,7.0/16,1,15.6/16,9.0/16);
+            case UP->Shapes.box(0,0.4/16,7.0/16,1,2.0/16,9.0/16);
+            case NORTH->Shapes.box(0,7.0/16,14.0/16,1,9.0/16,1);
+            case SOUTH->Shapes.box(0,7.0/16,0,1,9.0/16,2.0/16);
+            case WEST->Shapes.box(14.0/16,7.0/16,0,1,9.0/16,1);
+            case EAST->Shapes.box(0,7.0/16,0,2.0/16,9.0/16,1);
+        };
+        if(stripKind==2)return switch(f){
+            case DOWN,UP->Shapes.box(6.0/16,0,6.0/16,10.0/16,1,10.0/16);
+            case NORTH->Shapes.box(6.0/16,0,14.0/16,10.0/16,1,1);
+            case SOUTH->Shapes.box(6.0/16,0,0,10.0/16,1,2.0/16);
+            case WEST->Shapes.box(14.0/16,0,6.0/16,1,1,10.0/16);
+            case EAST->Shapes.box(0,0,6.0/16,2.0/16,1,10.0/16);
+        };
+        double lo=2.0/16,hi=14.0/16,th=2.0/16;
+        return switch(f){
+            case DOWN->Shapes.box(lo,1-th,lo,hi,1,hi);
+            case UP->Shapes.box(lo,0,lo,hi,th,hi);
+            case NORTH->Shapes.box(lo,lo,1-th,hi,hi,1);
+            case SOUTH->Shapes.box(lo,lo,0,hi,hi,th);
+            case WEST->Shapes.box(1-th,lo,lo,1,hi,hi);
+            case EAST->Shapes.box(0,lo,lo,th,hi,hi);
         };
     }
-
-    @Override public BlockState rotate(BlockState state, Rotation rotation) {
-        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
-    }
-    @Override public BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation(state.getValue(FACING)));
-    }
-    @Override protected void createBlockStateDefinition(StateDefinition.Builder<net.minecraft.world.level.block.Block, BlockState> builder) {
-        builder.add(FACING, BRIGHTNESS, POWERED);
-    }
-    @Override public RenderShape getRenderShape(BlockState state) { return RenderShape.MODEL; }
+    @Override public BlockState rotate(BlockState s,Rotation r){return s.setValue(FACING,r.rotate(s.getValue(FACING)));}
+    @Override public BlockState mirror(BlockState s,Mirror m){return s.rotate(m.getRotation(s.getValue(FACING)));}
+    @Override protected void createBlockStateDefinition(StateDefinition.Builder<net.minecraft.world.level.block.Block,BlockState>b){b.add(FACING,BRIGHTNESS,POWERED);}
+    @Override public RenderShape getRenderShape(BlockState s){return RenderShape.MODEL;}
 }

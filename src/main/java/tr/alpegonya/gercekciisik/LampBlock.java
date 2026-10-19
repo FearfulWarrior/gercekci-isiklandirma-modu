@@ -25,12 +25,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public final class LampBlock extends DirectionalBlock implements EntityBlock {
     // Color is a BlockState property so selecting another hue rebuilds the model immediately.
-    public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 15);
+    public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 16);
     // Five brightness modes: very low, low, medium, high, very high.
     public static final IntegerProperty BRIGHTNESS = IntegerProperty.create("brightness", 0, 15);
     public static final BooleanProperty POWERED = BooleanProperty.create("powered");
     public static final int MODERN_COLOR_COUNT = 15;
     public static final int MODERN_KELVIN_COLOR = 15;
+    public static final int CUSTOM_RGB_COLOR = 16;
     private static final int[] LIGHT_LEVELS = {1, 4, 10, 13, 15};
 
     private static final VoxelShape SLAB_BOTTOM = Shapes.box(0, 0, 0, 1, 2.0 / 16.0, 1);
@@ -48,7 +49,7 @@ public final class LampBlock extends DirectionalBlock implements EntityBlock {
         this.modern = modern;
         registerDefaultState(stateDefinition.any()
                 .setValue(FACING, Direction.DOWN)
-                .setValue(COLOR, modern ? 13 : 0)
+                .setValue(COLOR, modern ? 13 : 14)
                 .setValue(BRIGHTNESS, 13)
                 .setValue(POWERED, true));
     }
@@ -138,13 +139,7 @@ public final class LampBlock extends DirectionalBlock implements EntityBlock {
     }
 
     public static int rgb(int color, boolean modern, int temperatureIndex) {
-        if (!modern) {
-            return switch (Mth.clamp(color, 0, 2)) {
-                case 0 -> 0x9FC9FF;
-                case 1 -> 0xFFFFFF;
-                default -> 0xE8D8FF;
-            };
-        }
+        if (color == CUSTOM_RGB_COLOR) return 0xFFFFFF;
         return switch (Mth.clamp(color, 0, MODERN_KELVIN_COLOR)) {
             case 0 -> 0xFF3030;
             case 1 -> 0xFF8C24;
@@ -160,7 +155,7 @@ public final class LampBlock extends DirectionalBlock implements EntityBlock {
             case 11 -> 0xFFE0A3;
             case 12 -> 0xFFF1DF;
             case 13 -> 0xFFFFFF;
-            case 14 -> 0xC8E8FF;
+            case 14 -> 0x9FC9FF;
             default -> fromKelvin(1000 + Mth.clamp(temperatureIndex, 0, 18) * 500);
         };
     }
