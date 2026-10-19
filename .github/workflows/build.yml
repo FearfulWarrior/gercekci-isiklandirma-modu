@@ -8,6 +8,7 @@ on:
       - 'build.gradle'
       - 'settings.gradle'
       - 'gradle.properties'
+      - 'README.md'
       - 'src/**'
       - '.github/workflows/build.yml'
 
