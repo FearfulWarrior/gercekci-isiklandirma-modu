@@ -55,15 +55,12 @@ jobs:
               "tr/alpegonya/gercekciisik/client/BrightnessModeButton.class",
               "tr/alpegonya/gercekciisik/ConfigurableLightBlock.class",
               "tr/alpegonya/gercekciisik/AdjustableLightBlockEntity.class",
-              "tr/alpegonya/gercekciisik/LedStairBlock.class",
               "assets/gercekciisik/blockstates/square_spot.json",
               "assets/gercekciisik/blockstates/round_spot.json",
               "assets/gercekciisik/blockstates/traditional_ring_light.json",
               "assets/gercekciisik/blockstates/modern_ring_light.json",
               "assets/gercekciisik/blockstates/horizontal_led_strip.json",
               "assets/gercekciisik/blockstates/vertical_led_strip.json",
-              "assets/gercekciisik/blockstates/led_ceiling_panel.json",
-              "assets/gercekciisik/blockstates/led_stairs.json",
               "assets/gercekciisik/models/block/square_spot.json",
               "assets/gercekciisik/models/block/round_spot.json",
               "assets/gercekciisik/models/block/traditional_ring_light.json",
@@ -71,10 +68,10 @@ jobs:
               "assets/gercekciisik/models/block/horizontal_led_strip.json",
               "assets/gercekciisik/models/block/vertical_led_strip_wall.json",
               "assets/gercekciisik/models/block/vertical_led_strip_pendant.json",
-              "assets/gercekciisik/models/block/led_ceiling_panel.json",
-              "assets/gercekciisik/models/block/led_stair_glow.json",
-              "assets/gercekciisik/textures/block/ceiling_panel.png",
               "assets/gercekciisik/textures/block/ring_housing.png",
+              "assets/gercekciisik/textures/gui/color_wheel.png",
+              "assets/gercekciisik/models/block/vertical_led_strip.json",
+              "assets/gercekciisik/models/item/vertical_led_strip.json",
               "data/gercekciisik/loot_tables/blocks/traditional_fluorescent.json",
               "data/gercekciisik/loot_tables/blocks/modern_fluorescent.json",
               "data/gercekciisik/loot_tables/blocks/square_spot.json",
@@ -83,8 +80,6 @@ jobs:
               "data/gercekciisik/loot_tables/blocks/modern_ring_light.json",
               "data/gercekciisik/loot_tables/blocks/horizontal_led_strip.json",
               "data/gercekciisik/loot_tables/blocks/vertical_led_strip.json",
-              "data/gercekciisik/loot_tables/blocks/led_ceiling_panel.json",
-              "data/gercekciisik/loot_tables/blocks/led_stairs.json",
           ]
           with zipfile.ZipFile(jar) as z:
               names = set(z.namelist())
@@ -95,7 +90,7 @@ jobs:
               for name in names:
                   if name.endswith(".json"):
                       json.loads(z.read(name).decode("utf-8"))
-              for ident in ["traditional_fluorescent","modern_fluorescent","square_spot","round_spot","traditional_ring_light","modern_ring_light","horizontal_led_strip","vertical_led_strip","led_ceiling_panel","led_stairs"]:
+              for ident in ["traditional_fluorescent","modern_fluorescent","square_spot","round_spot","traditional_ring_light","modern_ring_light","horizontal_led_strip","vertical_led_strip"]:
                   loot = json.loads(z.read(f"data/gercekciisik/loot_tables/blocks/{ident}.json").decode("utf-8"))
                   assert loot["pools"][0]["entries"][0]["name"] == f"gercekciisik:{ident}", f"Bad loot table for {ident}"
               emitter = json.loads(z.read("assets/gercekciisik/light/emitters.json").decode("utf-8"))
@@ -109,7 +104,7 @@ jobs:
               assert modern[-1]["state"] == "powered=false" and modern[-1]["color"] == "#000000;0"
               assert sum(1 for item in modern if "nbt" in item) == 19
               for ident in ["square_spot", "round_spot", "traditional_ring_light", "modern_ring_light",
-                            "horizontal_led_strip", "vertical_led_strip", "led_stairs"]:
+                            "horizontal_led_strip", "vertical_led_strip"]:
                   entry = emitter[f"gercekciisik:{ident}"]
                   assert entry["default"] == "auto", f"{ident} should sample dynamically"
                   assert any(item["state"] == "powered=false" and item["color"] == "#000000;0"

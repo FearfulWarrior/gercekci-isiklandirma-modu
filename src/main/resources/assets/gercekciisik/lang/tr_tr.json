@@ -16,9 +16,5 @@
   "block.gercekciisik.horizontal_led_strip": "Yatay Şerit LED",
   "item.gercekciisik.horizontal_led_strip": "Yatay Şerit LED",
   "block.gercekciisik.vertical_led_strip": "Dikey Şerit LED",
-  "item.gercekciisik.vertical_led_strip": "Dikey Şerit LED",
-  "block.gercekciisik.led_ceiling_panel": "LED Yuvalı Tavan Paneli",
-  "item.gercekciisik.led_ceiling_panel": "LED Yuvalı Tavan Paneli",
-  "block.gercekciisik.led_stairs": "LED'li Merdiven",
-  "item.gercekciisik.led_stairs": "LED'li Merdiven"
+  "item.gercekciisik.vertical_led_strip": "Dikey Şerit LED"
 }

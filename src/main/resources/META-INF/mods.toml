@@ -7,7 +7,7 @@ modId="gercekciisik"
 version="${version}"
 displayName="Gerçekçi Işıklandırma Modu"
 authors="FearfulWarrior"
-description='''Forge 1.20.1 için renk ayarlı floresanlar, spotlar, simit armatürler, şerit LED ve LED merdivenler. Colorful Lighting ile renkli ortam ışığı desteklenir.'''
+description='''Forge 1.20.1 için renk ayarlı floresanlar, spotlar, simit armatürler ve şerit LED'ler. Colorful Lighting ile renkli ortam ışığı desteklenir.'''
 
 [[dependencies.gercekciisik]]
 modId="forge"
