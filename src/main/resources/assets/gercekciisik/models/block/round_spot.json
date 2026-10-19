@@ -4,7 +4,7 @@
   "textures": {
     "particle": "gercekciisik:block/frame",
     "frame": "gercekciisik:block/frame",
-    "diff": "gercekciisik:block/diffuser"
+    "diffuser": "gercekciisik:block/diffuser"
   },
   "elements": [
     {
@@ -914,14 +914,111 @@
     },
     {
       "from": [
+        5,
+        14,
+        12
+      ],
+      "to": [
+        6,
+        16,
+        13
+      ],
+      "faces": {
+        "down": {
+          "texture": "#frame"
+        },
+        "up": {
+          "texture": "#frame"
+        },
+        "north": {
+          "texture": "#frame"
+        },
+        "south": {
+          "texture": "#frame"
+        },
+        "east": {
+          "texture": "#frame"
+        },
+        "west": {
+          "texture": "#frame"
+        }
+      }
+    },
+    {
+      "from": [
         6,
         14,
         12
       ],
       "to": [
         10,
+        15.1,
+        13
+      ],
+      "faces": {
+        "down": {
+          "texture": "#diffuser",
+          "tintindex": 0
+        },
+        "up": {
+          "texture": "#frame"
+        },
+        "north": {
+          "texture": "#frame"
+        },
+        "south": {
+          "texture": "#frame"
+        },
+        "east": {
+          "texture": "#frame"
+        },
+        "west": {
+          "texture": "#frame"
+        }
+      }
+    },
+    {
+      "from": [
+        10,
+        14,
+        12
+      ],
+      "to": [
+        11,
         16,
         13
+      ],
+      "faces": {
+        "down": {
+          "texture": "#frame"
+        },
+        "up": {
+          "texture": "#frame"
+        },
+        "north": {
+          "texture": "#frame"
+        },
+        "south": {
+          "texture": "#frame"
+        },
+        "east": {
+          "texture": "#frame"
+        },
+        "west": {
+          "texture": "#frame"
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        14,
+        13
+      ],
+      "to": [
+        10,
+        16,
+        14
       ],
       "faces": {
         "down": {
