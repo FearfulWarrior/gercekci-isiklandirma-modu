@@ -86,7 +86,7 @@ public final class ModNetwork {
                     List<BlockPos> targets = light.isStrip()
                             ? collectStripNetwork(level, packet.pos, light) : List.of(packet.pos);
                     for (BlockPos target : targets) configureAdjustable(level, target, packet);
-
+                }
             });
             context.setPacketHandled(true);
         }
