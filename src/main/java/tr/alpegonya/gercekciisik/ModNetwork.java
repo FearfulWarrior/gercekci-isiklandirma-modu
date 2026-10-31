@@ -128,33 +128,35 @@ public final class ModNetwork {
         List<BlockPos> result = new ArrayList<>();
         queue.add(start);
         seen.add(start);
-        BlockState startState = level.getBlockState(start);
-        Direction first;
-        Direction second;
-        if (source.isVerticalStrip()) {
-            first = Direction.UP;
-            second = Direction.DOWN;
-        } else {
-            Direction.Axis axis = startState.getValue(ConfigurableLightBlock.FACING).getAxis()
-                    == Direction.Axis.X ? Direction.Axis.Z : Direction.Axis.X;
-            first = axis == Direction.Axis.X ? Direction.WEST : Direction.NORTH;
-            second = first.getOpposite();
-        }
-
         while (!queue.isEmpty() && seen.size() <= 2048) {
             BlockPos current = queue.removeFirst();
             result.add(current);
-            for (Direction direction : new Direction[]{first, second}) {
-                BlockPos neighbor = current.relative(direction);
-                if (!seen.add(neighbor)) continue;
-                BlockState nextState = level.getBlockState(neighbor);
-                if (nextState.getBlock() == source
-                        && nextState.getValue(ConfigurableLightBlock.FACING)
-                        == startState.getValue(ConfigurableLightBlock.FACING)) {
-                    queue.addLast(neighbor);
+            BlockState currentState = level.getBlockState(current);
+            for (Direction direction : Direction.values()) {
+                BlockPos adjacent = current.relative(direction);
+                if (seen.contains(adjacent)) continue;
+                BlockState nextState = level.getBlockState(adjacent);
+                if (areStripSegmentsConnected(currentState, nextState, direction)) {
+                    seen.add(adjacent);
+                    queue.addLast(adjacent);
                 }
             }
         }
         return result;
+    }
+
+    private static boolean areStripSegmentsConnected(BlockState current, BlockState next, Direction step) {
+        if (!(current.getBlock() instanceof ConfigurableLightBlock a)
+                || !(next.getBlock() instanceof ConfigurableLightBlock b)
+                || !a.isStrip() || !b.isStrip()) return false;
+        Direction.Axis axis = step.getAxis();
+        Direction.Axis aRun = a.getLongitudinalAxis(current);
+        Direction.Axis bRun = b.getLongitudinalAxis(next);
+        if (axis != aRun && axis != bRun) return false;
+        Direction aFace = current.getValue(ConfigurableLightBlock.FACING);
+        Direction bFace = next.getValue(ConfigurableLightBlock.FACING);
+        if (aFace == bFace) return true;
+        return (axis == aFace.getAxis() && axis == bRun)
+                || (axis == bFace.getAxis() && axis == aRun);
     }
 }

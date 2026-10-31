@@ -1,59 +1,57 @@
 {
-  "multipart": [
-    {
-      "when": {
-        "facing": "down"
-      },
-      "apply": {
-        "model": "gercekciisik:block/horizontal_led_strip"
-      }
+  "variants": {
+    "facing=down,line_axis=x": {
+      "model": "gercekciisik:block/horizontal_led_strip"
     },
-    {
-      "when": {
-        "facing": "up"
-      },
-      "apply": {
-        "model": "gercekciisik:block/horizontal_led_strip",
-        "x": 180
-      }
+    "facing=down,line_axis=z": {
+      "model": "gercekciisik:block/horizontal_led_strip",
+      "y": 90
     },
-    {
-      "when": {
-        "facing": "north"
-      },
-      "apply": {
-        "model": "gercekciisik:block/horizontal_led_strip",
-        "x": 90
-      }
+    "facing=up,line_axis=x": {
+      "model": "gercekciisik:block/horizontal_led_strip",
+      "x": 180
     },
-    {
-      "when": {
-        "facing": "south"
-      },
-      "apply": {
-        "model": "gercekciisik:block/horizontal_led_strip",
-        "x": 270
-      }
+    "facing=up,line_axis=z": {
+      "model": "gercekciisik:block/horizontal_led_strip",
+      "x": 180,
+      "y": 90
     },
-    {
-      "when": {
-        "facing": "west"
-      },
-      "apply": {
-        "model": "gercekciisik:block/horizontal_led_strip",
-        "x": 90,
-        "y": 90
-      }
+    "facing=north,line_axis=x": {
+      "model": "gercekciisik:block/horizontal_led_strip",
+      "x": 90
     },
-    {
-      "when": {
-        "facing": "east"
-      },
-      "apply": {
-        "model": "gercekciisik:block/horizontal_led_strip",
-        "x": 90,
-        "y": 270
-      }
+    "facing=north,line_axis=z": {
+      "model": "gercekciisik:block/horizontal_led_strip",
+      "x": 90,
+      "y": 90
+    },
+    "facing=south,line_axis=x": {
+      "model": "gercekciisik:block/horizontal_led_strip",
+      "x": 270
+    },
+    "facing=south,line_axis=z": {
+      "model": "gercekciisik:block/horizontal_led_strip",
+      "x": 270,
+      "y": 90
+    },
+    "facing=west,line_axis=x": {
+      "model": "gercekciisik:block/horizontal_led_strip",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west,line_axis=z": {
+      "model": "gercekciisik:block/horizontal_led_strip",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,line_axis=x": {
+      "model": "gercekciisik:block/horizontal_led_strip",
+      "x": 90
+    },
+    "facing=east,line_axis=z": {
+      "model": "gercekciisik:block/horizontal_led_strip",
+      "x": 90,
+      "y": 270
     }
-  ]
+  }
 }

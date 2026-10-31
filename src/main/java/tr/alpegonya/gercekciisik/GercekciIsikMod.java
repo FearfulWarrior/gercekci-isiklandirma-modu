@@ -29,17 +29,17 @@ public final class GercekciIsikMod {
     public static final RegistryObject<LampBlock> MODERN_FLUORESCENT=BLOCKS.register("modern_fluorescent",
         ()->new LampBlock(true,BlockBehaviour.Properties.of().strength(0.3F).sound(SoundType.GLASS).noOcclusion()));
     public static final RegistryObject<ConfigurableLightBlock> SQUARE_SPOT=BLOCKS.register("square_spot",
-        ()->new ConfigurableLightBlock(1,13,3,0,fixtureProperties()));
+        ()->new ConfigurableLightBlock(1,13,4,0,1,fixtureProperties()));
     public static final RegistryObject<ConfigurableLightBlock> ROUND_SPOT=BLOCKS.register("round_spot",
-        ()->new ConfigurableLightBlock(1,13,3,0,fixtureProperties()));
+        ()->new ConfigurableLightBlock(1,13,4,0,2,fixtureProperties()));
     public static final RegistryObject<ConfigurableLightBlock> TRADITIONAL_RING_LIGHT=BLOCKS.register("traditional_ring_light",
-        ()->new ConfigurableLightBlock(2,0,3,0,fixtureProperties()));
+        ()->new ConfigurableLightBlock(2,0,3,0,0,fixtureProperties()));
     public static final RegistryObject<ConfigurableLightBlock> MODERN_RING_LIGHT=BLOCKS.register("modern_ring_light",
-        ()->new ConfigurableLightBlock(1,13,3,0,fixtureProperties()));
+        ()->new ConfigurableLightBlock(1,13,3,0,0,fixtureProperties()));
     public static final RegistryObject<ConfigurableLightBlock> HORIZONTAL_LED_STRIP=BLOCKS.register("horizontal_led_strip",
-        ()->new ConfigurableLightBlock(1,13,3,1,fixtureProperties()));
+        ()->new ConfigurableLightBlock(1,13,3,1,0,fixtureProperties()));
     public static final RegistryObject<ConfigurableLightBlock> VERTICAL_LED_STRIP=BLOCKS.register("vertical_led_strip",
-        ()->new ConfigurableLightBlock(1,13,3,2,fixtureProperties()));
+        ()->new ConfigurableLightBlock(1,13,3,2,0,fixtureProperties()));
 
     public static final RegistryObject<BlockEntityType<LampBlockEntity>> LAMP_BLOCK_ENTITY=BLOCK_ENTITY_TYPES.register("lamp",
         ()->BlockEntityType.Builder.of(LampBlockEntity::new,TRADITIONAL_FLUORESCENT.get(),MODERN_FLUORESCENT.get()).build(null));

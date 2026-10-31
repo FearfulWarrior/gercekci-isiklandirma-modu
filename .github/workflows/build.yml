@@ -97,6 +97,18 @@ jobs:
               for name in names:
                   if name.endswith(".json"):
                       parsed_json[name] = json.loads(z.read(name).decode("utf-8"))
+              horizontal_state = parsed_json["assets/gercekciisik/blockstates/horizontal_led_strip.json"]
+              for face in ["down", "up", "north", "south", "west", "east"]:
+                  for axis in ["x", "z"]:
+                      key = f"facing={face},line_axis={axis}"
+                      assert key in horizontal_state.get("variants", {}), f"Missing horizontal LED orientation {key}"
+              round_spot = parsed_json["assets/gercekciisik/models/block/round_spot.json"]
+              for element in round_spot.get("elements", []):
+                  for value in (element.get("from", []) + element.get("to", [])):
+                      assert 0 <= value <= 16, "Round spot geometry exceeds block bounds"
+              square_spot = parsed_json["assets/gercekciisik/models/block/square_spot.json"]
+              assert square_spot["elements"][0]["from"] == [4, 14, 4]
+              assert square_spot["elements"][0]["to"] == [12, 16, 12]
               # Confirm mod-owned blockstate model links and model texture links resolve.
               for name, obj in parsed_json.items():
                   if name.startswith("assets/gercekciisik/blockstates/"):
